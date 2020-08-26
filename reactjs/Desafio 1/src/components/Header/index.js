@@ -7,7 +7,7 @@ function Header() {
   return (
     <header>
       <div>
-        <img src={profileIcon} alt="facebook" />
+        <img src={profileIcon} alt="facebook"/>
         <div id="my-profile">
           <span>Meu perfil</span>
           <i className="material-icons">account_circle</i>

@@ -1,8 +1,10 @@
+
+/*Configuraçãodo Header*/
 header{
-  background:#4A90E2;
-  color:#fff;
-  height: 64px;
-  padding: 0 16px;
+  background:var(--color-bck-header);
+  color: var(--color-header-text);
+  height: 6.4rem;
+  padding: 0 1.6rem;
 }
 
 header > div{
@@ -23,13 +25,13 @@ header > div div{
 }
 
 header div#my-profile span{
-  margin-right: 16px;
-  font-size:16px;
+  margin-right: 1.6rem;
+  font-size:1.6rem;
 }
 
 header div#my-profile i{
 
-  font-size:32px;
+  font-size:3.2rem;
 }
 
 /*Breakpoints*/

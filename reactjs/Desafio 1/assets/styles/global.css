@@ -1,0 +1,21 @@
+:root{
+  font-size: 62.5%;
+  --color-header-text: #ffffff;
+  --color-bck-header:#4A90E2;
+  --color-comment-primary:#EEEEEE;
+  --color-text-time:#9A9A9A;
+  --color-text-main:#4A4A4A;
+  --color-bck:#F2F2F2;
+}
+
+*{
+  margin:0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+#app{
+  background:var(--color-bck);
+  width: 100vw;
+  height: 100vh;
+}
