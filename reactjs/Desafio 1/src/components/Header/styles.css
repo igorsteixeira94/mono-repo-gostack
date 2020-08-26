@@ -1,0 +1,41 @@
+header{
+  background:#4A90E2;
+  color:#fff;
+  height: 64px;
+  padding: 0 16px;
+}
+
+header > div{
+  height: 100%;
+
+  margin: 0 auto;
+  max-width: 1000px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+header > div div{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+header div#my-profile span{
+  margin-right: 16px;
+  font-size:16px;
+}
+
+header div#my-profile i{
+
+  font-size:32px;
+}
+
+/*Breakpoints*/
+
+@media(max-width:425px){
+  header div#my-profile span{
+    display: none;
+  }
+}
