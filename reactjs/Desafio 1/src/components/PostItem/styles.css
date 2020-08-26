@@ -1,0 +1,94 @@
+article {
+  width: 700px;
+  background:var(--color-header-text);
+
+  margin: 0 auto;
+  margin-top: 2rem;
+  padding: 1.6rem;
+
+  border-radius: .8rem;
+  box-shadow: .2rem .2rem .6rem rgba(109, 109, 109, 0.77);
+}
+
+/*foto de perfil, nome e data da publicação*/
+section#post #profile-post{
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+
+  margin-bottom: 2.4rem;
+}
+
+/*foto de perfil*/
+section img {
+  width: 4.0rem;
+  height: 4.0rem;
+  border-radius: 5rem;
+  margin-right: 1.6rem;
+}
+
+/*Configuração do nome e data publicação*/
+section#post #profile-post-name{
+  display: flex;
+  flex-direction: column;
+
+}
+/*Nome de perfil*/
+section#post #profile-post-name span{
+  font-size: 1.6rem;
+  line-height: 1.6rem;
+  font-weight: 700;
+  color: var(--color-text-profile);
+}
+/*Data da publicação*/
+section#post #profile-post-name time{
+  font-size: 1.0rem;
+  line-height: 1.3rem;
+  color: var(--color-text-time);
+  margin-top: .4rem;
+
+}
+
+/*Conteudo da publicacao*/
+section#post p{
+  font-weight: 400;
+  font-size: 1.6rem;
+  color:var(--color-text-main);
+  margin-bottom: 2.0rem;
+}
+
+/*Linha de divisão*/
+section#post hr{
+
+  border:1px solid var(--color-comment-primary);
+  margin-bottom: 2.0rem ;
+
+}
+
+
+/*Comentarios*/
+section#comment{
+  display: flex;
+  justify-content: flex-start;
+}
+
+section#comment + section#comment{
+  margin-top: 1.6rem;
+}
+
+section#comment div{
+  width: 100%;
+
+  padding: 1.0rem 1.5rem;
+  border-radius: .8rem;
+
+  background:var(--color-comment-primary);
+}
+section#comment div p{
+  font-size: 1.3rem;
+  line-height: 2.0rem;
+  text-align: justify;
+  color: var(--color-text-main);
+}
+
+

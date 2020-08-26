@@ -4,7 +4,9 @@ header{
   background:var(--color-bck-header);
   color: var(--color-header-text);
   height: 6.4rem;
-  padding: 0 1.6rem;
+  position: fixed;
+  top: 0;
+  width: 100vw;
 }
 
 header > div{
