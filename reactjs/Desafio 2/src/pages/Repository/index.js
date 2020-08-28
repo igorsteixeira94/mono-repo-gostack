@@ -5,7 +5,7 @@ import { FaSpinner } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import api from '../../services/api';
 
-import { Loading, Owner, IssuesList } from './styles';
+import { Loading, Owner, IssuesList, PageAction, IssuesFilter } from './styles';
 import Container from '../../Components/Container';
 
 export default class Repository extends Component {
@@ -21,24 +21,39 @@ export default class Repository extends Component {
     repository: {},
     issues: [],
     loading: true,
+    page: 1,
+    indexIssues: 0,
+    issuesStatus: [
+      {
+        status: 'all',
+        name: 'Todas',
+      },
+      {
+        status: 'open',
+        name: 'Abertas',
+      },
+      {
+        status: 'closed',
+        name: 'Fechadas',
+      },
+    ],
   };
 
   async componentDidMount() {
     const { match } = this.props;
-
+    const { page, issuesStatus, indexIssues } = this.state;
     const repoName = decodeURIComponent(match.params.repository);
-    console.log(repoName);
+
     const [repository, issues] = await Promise.all([
       api.get(`/${repoName}`),
       api.get(`/${repoName}/issues`, {
         params: {
-          state: 'open',
+          state: issuesStatus[indexIssues].status,
           per_page: 5,
+          page,
         },
       }),
     ]);
-
-    console.log(issues);
 
     this.setState({
       repository: repository.data,
@@ -47,8 +62,44 @@ export default class Repository extends Component {
     });
   }
 
+  loadIssues = async () => {
+    const { match } = this.props;
+    const repoName = decodeURIComponent(match.params.repository);
+    const { page, issuesStatus, indexIssues } = this.state;
+    const issues = await api.get(`/${repoName}/issues`, {
+      params: {
+        state: issuesStatus[indexIssues].status,
+        per_page: 5,
+        page,
+      },
+    });
+
+    this.setState({ issues: issues.data });
+  };
+
+  handlePage = async (action) => {
+    const { page } = this.state;
+    await this.setState({
+      page: action === 'back' ? page - 1 : page + 1,
+    });
+    this.loadIssues();
+  };
+
+  handleIssuesStatus = async (index) => {
+    await this.setState({ indexIssues: index });
+
+    this.loadIssues();
+  };
+
   render() {
-    const { repository, issues, loading } = this.state;
+    const {
+      repository,
+      issues,
+      loading,
+      page,
+      issuesStatus,
+      indexIssues,
+    } = this.state;
 
     if (loading) {
       return (
@@ -65,6 +116,20 @@ export default class Repository extends Component {
           <h1>{repository.name}</h1>
           <p>{repository.description}</p>
         </Owner>
+        <IssuesFilter>
+          {issuesStatus.map((item, index) => (
+            <button
+              type="button"
+              key={index}
+              disabled={!!(index === indexIssues)}
+              onClick={() => {
+                this.handleIssuesStatus(index);
+              }}
+            >
+              {item.name}
+            </button>
+          ))}
+        </IssuesFilter>
         <IssuesList>
           {issues.map((issue) => (
             <li key={String(issue.id)}>
@@ -87,6 +152,27 @@ export default class Repository extends Component {
             </li>
           ))}
         </IssuesList>
+
+        <PageAction>
+          <button
+            type="button"
+            onClick={() => {
+              this.handlePage('back');
+            }}
+            disabled={page < 2}
+          >
+            Voltar
+          </button>
+          <span>Página {page}</span>
+          <button
+            type="button"
+            onClick={() => {
+              this.handlePage('next');
+            }}
+          >
+            Próximo
+          </button>
+        </PageAction>
       </Container>
     );
   }

@@ -115,3 +115,56 @@ export const IssuesList = styled.ul`
     }
   }
 `;
+
+export const PageAction = styled.div`
+  padding: 1.6rem 3rem;
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  button {
+    color: #fff;
+    background: #7159c1;
+    border: 0;
+    border-radius: 0.8rem;
+    padding: 0.8rem;
+    cursor: pointer;
+
+    &:hover {
+      background: #5130ba;
+    }
+
+    &[disabled] {
+      opacity: 0.1;
+      cursor: not-allowed;
+      background: #7159c1;
+    }
+  }
+`;
+
+export const IssuesFilter = styled.div`
+  list-style: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 0 3rem;
+  margin-top: 1.6rem;
+
+  font-size: 1.2rem;
+
+  font-weight: bold;
+
+  button {
+    cursor: pointer;
+    border: 0;
+    background: #fff;
+    &[disabled] {
+      border-bottom: 2px solid #7159c1;
+
+      cursor: not-allowed;
+    }
+  }
+`;
