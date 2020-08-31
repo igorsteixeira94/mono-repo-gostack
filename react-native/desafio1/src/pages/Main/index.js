@@ -40,7 +40,7 @@ export default class Main extends Component {
     }
   }
 
-  imprimirNome = async () => {
+  handleAddUser = async () => {
     this.setState({ loading: true });
     const { newUser, users } = this.state;
 
@@ -58,6 +58,12 @@ export default class Main extends Component {
     Keyboard.dismiss();
   };
 
+  handleProfile = (user) => {
+    const { navigation } = this.props;
+
+    navigation.navigate('User', { user });
+  };
+
   render() {
     const { newUser, users, loading } = this.state;
     return (
@@ -70,9 +76,9 @@ export default class Main extends Component {
             placeholder="Adicione um usuário"
             value={newUser}
             onChangeText={(value) => this.setState({ newUser: value })}
-            onSubmitEditing={this.imprimirNome}
+            onSubmitEditing={this.handleAddUser}
           />
-          <SubmitButton loading={loading} onPress={this.imprimirNome}>
+          <SubmitButton loading={loading} onPress={this.handleAddUser}>
             {loading ? (
               <ActivityIndicator color="#fff" />
             ) : (
@@ -88,7 +94,11 @@ export default class Main extends Component {
               <Avatar source={{ uri: item.avatar }} />
               <Name>{item.name}</Name>
               <Bio>{item.bio}</Bio>
-              <ProfileButton onPress={() => {}}>
+              <ProfileButton
+                onPress={() => {
+                  this.handleProfile(item);
+                }}
+              >
                 <ProfileButtonText>Ver perfil</ProfileButtonText>
               </ProfileButton>
             </User>
