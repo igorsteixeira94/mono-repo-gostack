@@ -1,4 +1,5 @@
 node_modules/
 yarn.*
+yarn-error.log
 tmp/*
 !tmp/.gitkeep
