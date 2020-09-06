@@ -9,6 +9,7 @@ import multerConfig from './config/multer';
 import DeliverymanController from './app/controllers/DeliverymanController';
 import ParcelController from './app/controllers/ParcelController';
 import DeliveryController from './app/controllers/DeliveryController';
+import DeliveryProblemsController from './app/controllers/DeliveryProblemsController';
 
 const routes = new Router();
 const upload = multer(multerConfig);
@@ -29,6 +30,8 @@ routes.post(
   '/deliveryman/:deliveryman_id/deliveries/:id',
   DeliveryController.store
 );
+// Rota para entregadores indicar algum erro em uma entrega
+routes.post('/delivery/:id/problems', DeliveryProblemsController.store);
 
 // Middleware de autenticação
 routes.use(authMiddleware);
@@ -48,5 +51,13 @@ routes.get('/parcels', ParcelController.index);
 routes.get('/parcels/:id', ParcelController.show);
 routes.put('/parcels/:id', ParcelController.update);
 routes.delete('/parcels/:id', ParcelController.delete);
+
+// Rota para a distribuidora lidar com as entregas com problemas
+routes.get('/problems/deliveries', DeliveryProblemsController.index);
+routes.get('/delivery/:id/problems', DeliveryProblemsController.show);
+routes.delete(
+  '/problem/:id/cancel-delivery',
+  DeliveryProblemsController.delete
+);
 
 export default routes;

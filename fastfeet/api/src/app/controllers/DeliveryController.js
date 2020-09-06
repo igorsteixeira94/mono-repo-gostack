@@ -6,7 +6,6 @@ import {
   setHours,
   startOfDay,
   endOfDay,
-  parseJSON,
 } from 'date-fns';
 import isWithinInterval from 'date-fns/isWithinInterval';
 
