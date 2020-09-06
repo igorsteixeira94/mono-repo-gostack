@@ -1,10 +1,10 @@
 export default {
-  host: 'smtp.mailtrap.io',
-  post: 2525,
+  host: process.env.MAIL_HOST,
+  post: process.env.MAIL_PORT,
   secure: false,
   auth: {
-    user: 'e5832125c6ee52',
-    pass: 'b2450746a581ee',
+    user: process.env.MAIL_USER,
+    pass: process.env.MAIL_PASS,
   },
   default: {
     from: 'Equipe FastFeet <noreply@fastfeet.com>',

@@ -1,7 +1,7 @@
+import 'dotenv/config';
 import express from 'express';
 import path from 'path';
 import routes from './routes';
-import 'dotenv/config';
 
 import './database';
 
