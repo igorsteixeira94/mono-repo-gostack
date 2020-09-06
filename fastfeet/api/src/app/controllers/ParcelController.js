@@ -3,6 +3,7 @@ import Parcel from '../models/Parcel';
 import Deliveryman from '../models/Deliveryman';
 import Recipient from '../models/Recipient';
 import File from '../models/File';
+import Mail from '../../lib/Mail';
 
 export default new (class ParcelController {
   async store(req, res) {
@@ -54,6 +55,7 @@ export default new (class ParcelController {
         },
       ],
     });
+
     return res.json(parcels);
   }
 
@@ -76,6 +78,12 @@ export default new (class ParcelController {
     });
 
     if (!parcels) return res.status(400).json({ error: "Parcel don't exist" });
+
+    await Mail.sendMail({
+      to: `${parcels.deliveryman.name} <${parcels.deliveryman.email}>`,
+      subject: 'Nova entrega',
+      text: 'Você tem uma nova entrega',
+    });
     return res.json(parcels);
   }
 
