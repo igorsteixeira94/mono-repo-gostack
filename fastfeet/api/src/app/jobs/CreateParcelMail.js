@@ -6,11 +6,17 @@ class CreateParcelMail {
   }
 
   async handle({ data }) {
-    const { parcels } = data;
+    const { parcel } = data;
     await Mail.sendMail({
-      to: `${parcels.deliveryman.name} <${parcels.deliveryman.email}>`,
+      to: `${parcel.deliveryman.name} <${parcel.deliveryman.email}>`,
       subject: 'Nova entrega',
-      text: 'Você tem uma nova entrega',
+      template: 'create',
+      context: {
+        deliveryman: parcel.deliveryman.name,
+        recipient: parcel.recipient.name,
+        product: parcel.product,
+        adress: `Rua: ${parcel.recipient.street}, nº ${parcel.recipient.number}. Cidade: ${parcel.recipient.city}. CEP:${parcel.recipient.cep}`,
+      },
     });
   }
 }

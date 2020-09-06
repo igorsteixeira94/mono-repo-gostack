@@ -27,13 +27,33 @@ export default new (class ParcelController {
       return res.status(400).json({ error: "Recipient don't exist" });
     }
 
-    const parcel = await Parcel.create({
+    const parcelCreated = await Parcel.create({
       recipient_id,
       deliveryman_id,
       product,
     });
 
-    return res.json(parcel);
+    if (parcelCreated) {
+      const parcel = await Parcel.findByPk(parcelCreated.id, {
+        attributes: { exclude: ['createdAt', 'updatedAt'] },
+        include: [
+          {
+            model: Recipient,
+            as: 'recipient',
+            attributes: { exclude: ['createdAt', 'updatedAt'] },
+          },
+          {
+            model: Deliveryman,
+            as: 'deliveryman',
+            attributes: ['id', 'name', 'email'],
+            include: { model: File, as: 'avatar' },
+          },
+        ],
+      });
+      await Queue.add(CreateParcelMail.key, { parcel });
+      return res.json(parcel);
+    }
+    return res.status(500).json({ error: 'Error register new parcel' });
   }
 
   async index(req, res) {
@@ -79,8 +99,6 @@ export default new (class ParcelController {
     });
 
     if (!parcels) return res.status(400).json({ error: "Parcel don't exist" });
-
-    await Queue.add(CreateParcelMail.key, { parcels });
 
     return res.json(parcels);
   }

@@ -1,4 +1,7 @@
 import nodemailer from 'nodemailer';
+import { resolve } from 'path';
+import nodemailerhbs from 'nodemailer-express-handlebars';
+import exphbs from 'express-handlebars';
 import mailConfig from '../config/mail';
 
 class Mail {
@@ -11,10 +14,9 @@ class Mail {
       secure,
       auth: auth.user ? auth : null,
     });
-    // this.configureTemplate();
+    this.configureTemplate();
   }
 
-  /*
   configureTemplate() {
     const viewPath = resolve(__dirname, '..', 'app', 'views', 'emails');
 
@@ -32,7 +34,7 @@ class Mail {
       })
     );
   }
-*/
+
   sendMail(message) {
     return this.transporter.sendMail({
       ...mailConfig.default,
