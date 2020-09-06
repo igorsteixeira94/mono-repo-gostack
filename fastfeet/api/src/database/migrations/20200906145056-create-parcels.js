@@ -1,21 +1,66 @@
-'use strict';
-
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    /**
-     * Add altering commands here.
-     *
-     * Example:
-     * await queryInterface.createTable('users', { id: Sequelize.INTEGER });
-     */
+    return queryInterface.createTable('parcels', {
+      id: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        primaryKey: true,
+        autoIncrement: true,
+      },
+      recipient_id: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        references: {
+          model: 'recipients',
+          key: 'id',
+        },
+        onUpdate: 'CASCADE',
+        onDelete: 'SET NULL',
+      },
+      deliveryman_id: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        references: {
+          model: 'deliverymans',
+          key: 'id',
+        },
+        onUpdate: 'CASCADE',
+        onDelete: 'SET NULL',
+      },
+      signature_id: {
+        type: Sequelize.INTEGER,
+        references: {
+          model: 'files',
+          key: 'id',
+        },
+        onUpdate: 'CASCADE',
+        onDelete: 'SET NULL',
+      },
+      product: {
+        type: Sequelize.STRING,
+        allowNull: false,
+      },
+      canceled_at: {
+        type: Sequelize.DATE,
+      },
+      start_date: {
+        type: Sequelize.DATE,
+      },
+      end_date: {
+        type: Sequelize.DATE,
+      },
+      created_at: {
+        type: Sequelize.DATE,
+        allowNull: false,
+      },
+      updated_at: {
+        type: Sequelize.DATE,
+        allowNull: false,
+      },
+    });
   },
 
-  down: async (queryInterface, Sequelize) => {
-    /**
-     * Add reverting commands here.
-     *
-     * Example:
-     * await queryInterface.dropTable('users');
-     */
-  }
+  down: async (queryInterface) => {
+    return queryInterface.dropTable('parcels');
+  },
 };
