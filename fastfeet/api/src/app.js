@@ -1,4 +1,5 @@
 import express from 'express';
+import path from 'path';
 import routes from './routes';
 import 'dotenv/config';
 
@@ -14,6 +15,10 @@ class App {
 
   middleware() {
     this.express.use(express.json());
+    this.express.use(
+      '/files',
+      express.static(path.resolve(__dirname, '..', 'tmp', 'uploads'))
+    );
   }
 
   routes() {
