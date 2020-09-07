@@ -1,4 +1,5 @@
 import React from 'react';
+import './config/Reactotron';
 import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import GlobalStyle from './styles/global';
