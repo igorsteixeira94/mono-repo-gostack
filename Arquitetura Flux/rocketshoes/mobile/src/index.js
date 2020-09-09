@@ -1,9 +1,12 @@
 import React from 'react';
-import { View, Text } from 'react-native';
+import { StatusBar } from 'react-native';
+import './config/Reactotron';
+import Routes from './routes';
 
 const App = () => (
-  <View>
-    <Text>RocketShoes</Text>
-  </View>
+  <>
+    <StatusBar backgroundColor="#191920" barStyle="light-content" />
+    <Routes />
+  </>
 );
 export default App;
