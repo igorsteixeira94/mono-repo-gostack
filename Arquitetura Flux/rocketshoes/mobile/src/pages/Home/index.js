@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
-import { FlatList, Text, TouchableOpacity } from 'react-native';
+import { FlatList } from 'react-native';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import * as CartActions from '../../store/modules/cart/actions';
 import {
   Container,
   Card,
@@ -15,7 +18,7 @@ import {
 import api from '../../services/api';
 import { formatPrice } from '../../util/format';
 
-export default class Home extends Component {
+class Home extends Component {
   state = {
     products: [],
   };
@@ -29,6 +32,11 @@ export default class Home extends Component {
     }));
     this.setState({ products: data });
   }
+
+  handleAddProduct = (product) => {
+    const { addToCartRequest } = this.props;
+    addToCartRequest(product);
+  };
 
   render() {
     const { products } = this.state;
@@ -47,7 +55,7 @@ export default class Home extends Component {
                 R$
                 {item.priceFormatted}
               </Price>
-              <BtnAdd onPress={() => this.props.navigation.push('Cart')}>
+              <BtnAdd onPress={() => this.handleAddProduct(item)}>
                 <ContainerQtdItem>
                   <Icon name="add-shopping-cart" size={20} color="#ffffff" />
                   <QtdItem>0</QtdItem>
@@ -61,3 +69,8 @@ export default class Home extends Component {
     );
   }
 }
+
+const mapDispatchToProps = (dispatch) =>
+  bindActionCreators(CartActions, dispatch);
+
+export default connect(null, mapDispatchToProps)(Home);
