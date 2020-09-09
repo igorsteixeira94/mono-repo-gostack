@@ -33,9 +33,9 @@ class Home extends Component {
     this.setState({ products: data });
   }
 
-  handleAddProduct = (product) => {
+  handleAddProduct = (id) => {
     const { addToCartRequest } = this.props;
-    addToCartRequest(product);
+    addToCartRequest(id);
   };
 
   render() {
@@ -55,7 +55,7 @@ class Home extends Component {
                 R$
                 {item.priceFormatted}
               </Price>
-              <BtnAdd onPress={() => this.handleAddProduct(item)}>
+              <BtnAdd onPress={() => this.handleAddProduct(item.id)}>
                 <ContainerQtdItem>
                   <Icon name="add-shopping-cart" size={20} color="#ffffff" />
                   <QtdItem>0</QtdItem>
@@ -70,7 +70,6 @@ class Home extends Component {
   }
 }
 
-const mapDispatchToProps = (dispatch) =>
-  bindActionCreators(CartActions, dispatch);
+const mapDispatchToProps = (dispatch) => bindActionCreators(CartActions, dispatch);
 
 export default connect(null, mapDispatchToProps)(Home);
