@@ -20,6 +20,14 @@ export function addToCartResponse(product) {
   };
 }
 
+export function updateAmount(id, amount) {
+  return {
+    type: '@cart/UPDATE_AMOUNT_REQUEST',
+    id,
+    amount,
+  };
+}
+
 export function updateAmountResponse(id, amount) {
   return {
     type: '@cart/UPDATE_AMOUNT_RESPONSE',

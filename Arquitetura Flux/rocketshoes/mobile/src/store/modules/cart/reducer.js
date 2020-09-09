@@ -12,6 +12,7 @@ export default function cart(state = [], action) {
     case '@cart/UPDATE_AMOUNT_RESPONSE':
       return produce(state, (draft) => {
         const { id, amount } = action;
+        if (amount <= 0) return state;
         const productIndex = draft.findIndex((p) => p.id === id);
 
         if (productIndex >= 0) {

@@ -40,6 +40,7 @@ class Home extends Component {
 
   render() {
     const { products } = this.state;
+    const { amount } = this.props;
     return (
       <Container>
         <FlatList
@@ -58,7 +59,7 @@ class Home extends Component {
               <BtnAdd onPress={() => this.handleAddProduct(item.id)}>
                 <ContainerQtdItem>
                   <Icon name="add-shopping-cart" size={20} color="#ffffff" />
-                  <QtdItem>0</QtdItem>
+                  <QtdItem>{amount[item.id] || 0}</QtdItem>
                 </ContainerQtdItem>
                 <BtnAddText>ADICIONAR</BtnAddText>
               </BtnAdd>
@@ -69,7 +70,13 @@ class Home extends Component {
     );
   }
 }
+const mapStateToProps = (state) => ({
+  amount: state.cart.reduce((amount, product) => {
+    amount[product.id] = product.amount;
 
+    return amount;
+  }, {}),
+});
 const mapDispatchToProps = (dispatch) => bindActionCreators(CartActions, dispatch);
 
-export default connect(null, mapDispatchToProps)(Home);
+export default connect(mapStateToProps, mapDispatchToProps)(Home);

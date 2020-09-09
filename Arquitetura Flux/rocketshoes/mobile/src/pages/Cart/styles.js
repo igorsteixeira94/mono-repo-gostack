@@ -6,7 +6,7 @@ export const Container = styled.View`
   padding: 16px;
 `;
 
-export const Wrapper = styled.View`
+export const Wrapper = styled.ScrollView`
   background: #ffff;
   border-radius: 8px;
 `;
@@ -62,4 +62,29 @@ export const ProductPriceTotal = styled.Text`
   font-size: 16px;
   color: #333;
   font-weight: bold;
+`;
+
+export const PriceTotalTitle = styled.Text`
+  font-size: 22px;
+  color: #ccc;
+  font-weight: bold;
+  text-align: center;
+`;
+
+export const PriceTotal = styled.Text`
+  font-size: 26px;
+  color: #333;
+  font-weight: bold;
+  text-align: center;
+`;
+
+export const EmpytContainer = styled.View`
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+  background: #fff;
+`;
+export const EmpytText = styled.Text`
+  font-size: 26px;
+  color: #333;
 `;
