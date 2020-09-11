@@ -11,7 +11,8 @@ module.exports = {
       Atomics: 'readonly',
       SharedArrayBuffer: 'readonly',
       __DEV__: 'readonly',
-      document:'readonly'
+      document:'readonly',
+      localStorage:'readonly'
     },
     parser: 'babel-eslint',
     parserOptions: {
