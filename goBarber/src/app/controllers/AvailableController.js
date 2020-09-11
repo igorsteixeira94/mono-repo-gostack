@@ -18,7 +18,7 @@ class AvailableController {
     if (!date) {
       return res.status(400).json({ error: 'Invalid date' });
     }
-    const searchDate = Numbera(date);
+    const searchDate = Number(date);
 
     // Pego todos os agendamentos que existem no dia
     const appointments = await Appointment.findAll({
