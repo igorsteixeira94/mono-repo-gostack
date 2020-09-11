@@ -2,14 +2,11 @@ module.exports = {
   env: {
     es2020: true,
   },
-  extends: [
-    'plugin:react/recommended',
-    'airbnb',
-  ],
-  globals:{
-    __DEV__:'readonly',
+  extends: ['plugin:react/recommended', 'airbnb'],
+  globals: {
+    __DEV__: 'readonly',
   },
-  parser:'babel-eslint',
+  parser: 'babel-eslint',
   parserOptions: {
     ecmaFeatures: {
       jsx: true,
@@ -17,17 +14,14 @@ module.exports = {
     ecmaVersion: 12,
     sourceType: 'module',
   },
-  plugins: [
-    'react',
-    'prettier'
-  ],
+  plugins: ['react', 'prettier'],
   rules: {
     'prettier/prettier': 'error',
     'react/jsx-filename-extension': [
       'warn',
       {
-        extensions: ['.jsx', '.js']
-      }
+        extensions: ['.jsx', '.js'],
+      },
     ],
     'import/prefer-default-export': 'off',
     'react/state-in-constructor': 'off',
@@ -35,6 +29,6 @@ module.exports = {
     'react/jsx-props-no-spreading': 'off',
     'react/prop-types': 'off',
     'no-param-reassign': 'off',
-    'no-console': 'off'
+    'no-console': 'off',
   },
 };
