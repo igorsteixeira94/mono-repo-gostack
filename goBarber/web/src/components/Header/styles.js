@@ -20,7 +20,6 @@ export const Content = styled.div`
     }
 
     img {
-      margin-right: 10px;
       padding-right: 10px;
       border-radius: 1px solid red;
     }

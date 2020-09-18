@@ -1,5 +1,5 @@
 import React from 'react';
-import { useSelect, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import Notification from '../Notification';
 import { Container, Content, Profile } from './styles';

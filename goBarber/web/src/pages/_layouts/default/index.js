@@ -5,10 +5,10 @@ import Header from '../../../components/Header';
 
 function DefaultLayout({ children }) {
   return (
-    <Wrapper>
+    <>
       <Header />
-      {children}
-    </Wrapper>
+      <Wrapper>{children}</Wrapper>
+    </>
   );
 }
 
