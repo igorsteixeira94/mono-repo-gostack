@@ -1,7 +1,15 @@
 import React from 'react';
+import { BrowserRouter } from 'react-router-dom';
+import Routes from './Routes';
+import GlobalStyles from './styles/global';
 
 function App() {
-  return <h1>Iuri Rodrigues</h1>;
+  return (
+    <BrowserRouter>
+      <Routes />
+      <GlobalStyles />
+    </BrowserRouter>
+  );
 }
 
 export default App;
