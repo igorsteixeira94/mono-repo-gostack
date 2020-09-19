@@ -12,7 +12,7 @@ export const Container = styled.div`
 `;
 
 export const LoginWrapper = styled.div`
-  width: 360px;
+  max-width: 360px;
   padding: 16px 8px;
 
   border-radius: 4px;
@@ -51,7 +51,10 @@ export const LoginWrapper = styled.div`
       border-radius: 4px;
       border: 1px solid var(--color-border-input);
 
-      padding: 12px 15px;
+      padding: 12px;
+
+      font-size: 16px;
+      color: var(--color-placeholder);
 
       &::placeholder {
         color: var(--color-placeholder);
