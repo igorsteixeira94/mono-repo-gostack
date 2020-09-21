@@ -16,6 +16,8 @@ export default createGlobalStyle`
     --color-border-input:#DDDDDD;
     --color-placeholder:#999999;
     --color-text:#444444;
+    --color-bck:#F5F5F5;
+    --color-exit-alert:#DE3B3B;
   }
 
   *{
@@ -23,6 +25,7 @@ export default createGlobalStyle`
     padding:0;
     box-sizing: border-box;
     font-family: 'Roboto', sans-serif;
+    color: var(--color-text);
   }
 
   html,body,#root{
@@ -30,6 +33,10 @@ export default createGlobalStyle`
     height:100vh;
 
   }
+  table, th, td {
+  border-collapse:separate; 
+  border-spacing: 0 10px;
+}
 
   body{
     -webkit-font-smoothing:antialiased;
