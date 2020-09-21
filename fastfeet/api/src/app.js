@@ -1,4 +1,5 @@
 import 'dotenv/config';
+import cors from 'cors';
 import Youch from 'youch';
 import 'express-async-errors';
 import express from 'express';
@@ -16,6 +17,7 @@ class App {
   }
 
   middleware() {
+    this.express.use(cors());
     this.express.use(express.json());
     this.express.use(
       '/files',
