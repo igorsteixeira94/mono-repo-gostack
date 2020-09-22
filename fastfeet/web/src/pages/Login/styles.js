@@ -1,87 +1,68 @@
 import styled from 'styled-components';
 import { darken } from 'polished';
 
-export const Container = styled.div`
-  height: 100vh;
-  width: 100vw;
-  background: var(--color-text-btn-bcg);
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-`;
-
 export const LoginWrapper = styled.div`
-  max-width: 360px;
-  padding: 16px 8px;
-
-  border-radius: 4px;
-
-  border: 1px solid var(--color-border-form);
+  width: 100%;
+  max-width: 400px;
 
   background: var(--color-bcg-form);
+  border: 1px solid var(--color-border-form);
+  border-radius: 6px;
 
-  display: flex;
-  align-items: center;
-  flex-direction: column;
+  padding: 30px 24px;
+  text-align: center;
 
   img {
-    margin-bottom: 44px;
+    margin: 20px 0px;
   }
 
   form {
-    span {
-      color: var(--color-text);
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+
+    label {
+      display: block;
+      margin-bottom: 16px;
 
       font-size: 14px;
       font-weight: bold;
+      text-align: left;
 
-      display: block;
+      input {
+        outline: none;
 
-      margin-bottom: 8px;
-    }
-    input {
-      outline: 0;
+        margin-top: 4px;
+        width: 100%;
 
-      width: 100%;
-      height: 45px;
+        border-radius: 6px;
+        border: 1px solid var(--color-border-input);
 
-      margin-bottom: 16px;
+        padding: 12px;
 
-      border-radius: 4px;
-      border: 1px solid var(--color-border-input);
-
-      padding: 12px;
-
-      font-size: 16px;
-      color: var(--color-placeholder);
-
-      &::placeholder {
-        color: var(--color-placeholder);
-        font-size: 16px;
+        color: var(--color-text);
       }
     }
 
     button {
+      outline: 0;
+      padding: 12px 0px;
+      margin-bottom: 36px;
+
       border: 0;
-      border-radius: 4px;
+      border-radius: 6px;
 
       background: var(--color-text-btn-bcg);
 
-      color: var(--color-bcg-form);
-
       font-weight: bold;
       font-size: 16px;
-
-      width: 100%;
-      height: 45px;
-
-      margin-bottom: 60px;
+      color: var(--color-bcg-form);
 
       transition: background 0.2s;
 
       &:hover {
-        background: ${darken(0.1, '#7D40E7')};
+        background: ${darken(0.08, '#7159c1')};
       }
     }
   }

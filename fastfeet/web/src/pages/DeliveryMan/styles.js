@@ -2,14 +2,13 @@ import styled from 'styled-components';
 import { darken, lighten } from 'polished';
 
 export const Container = styled.div`
-  height: 100vh;
   width: 100vw;
   background: var(--color-bck);
 `;
 
 export const Content = styled.div`
   padding: 30px;
-  min-width: 1000px;
+  width: 1000px;
 
   table {
     width: 100%;
@@ -77,4 +76,12 @@ export const Avatar = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+`;
+
+export const ImgAvatar = styled.img`
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+
+  margin: 8px auto;
 `;

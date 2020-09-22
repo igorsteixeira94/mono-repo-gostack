@@ -19,10 +19,10 @@ function App() {
       <PersistGate persistor={persistor}>
         <Router history={history}>
           <Routes />
-          <GlobalStyles />
-          <ToastContainer />
         </Router>
       </PersistGate>
+      <GlobalStyles />
+      <ToastContainer />
     </Provider>
   );
 }

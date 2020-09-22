@@ -7,23 +7,45 @@ import Action from '../../components/Actions';
 
 import createLetterAvatar from '../../util/letterAvatar';
 
-import { Container, Content, MenuDeliveryman, Avatar } from './styles';
+import {
+  Container,
+  Content,
+  MenuDeliveryman,
+  Avatar,
+  ImgAvatar,
+} from './styles';
 
-function DeliveryMan() {
+function DeliveryMan({ history }) {
   const [deliveryman, setDeliveryman] = useState('');
-  const profile = createLetterAvatar('Joao Alves', 2);
+  const [deliverymen, setDeliverymen] = useState([]);
+
+  // Função para buscar os dados na api
+  async function loadDeliverymans(nameFilter = null) {
+    const response = await api.get('/deliverymans', {
+      params: { q: nameFilter },
+    });
+    const data = response.data.map((deliverymanItem, index) => ({
+      ...deliverymanItem,
+      avatarLetter: deliverymanItem.avatar
+        ? null
+        : createLetterAvatar(deliverymanItem.name, index),
+    }));
+    console.tron.log(data);
+    setDeliverymen(data);
+  }
+
+  // Função que executa a cada letra digitada no input
+  async function handleSearch(name) {
+    if (name.length >= 3) {
+      loadDeliverymans(name);
+    }
+    if (name === '') {
+      loadDeliverymans();
+    }
+    setDeliveryman(name);
+  }
 
   useEffect(() => {
-    async function loadDeliverymans() {
-      const response = await api.get('/deliverymans');
-      const data = response.data.map((deliveryman, index) => ({
-        ...deliveryman,
-        avatarLetter: deliveryman.avatar
-          ? null
-          : createLetterAvatar(deliveryman.name, index),
-      }));
-      console.tron.log(data);
-    }
     loadDeliverymans();
   }, []);
 
@@ -37,9 +59,16 @@ function DeliveryMan() {
             type="text"
             placeholder="Buscar por entregadores"
             value={deliveryman}
-            onChange={(e) => setDeliveryman(e.target.value)}
+            onChange={(e) => handleSearch(e.target.value)}
           />
-          <button type="button">+ Cadastrar</button>
+          <button
+            type="button"
+            onClick={() => {
+              history.push('/deliverymans/new');
+            }}
+          >
+            + Cadastrar
+          </button>
         </MenuDeliveryman>
 
         <table>
@@ -53,28 +82,25 @@ function DeliveryMan() {
             </tr>
           </thead>
           <tbody>
-            <tr id="deliveryman">
-              <td>1</td>
-              <td>
-                <Avatar color={profile.color}>{profile.letters}</Avatar>
-              </td>
-              <td>Joao Alves</td>
-              <td>joaoa@mail.com</td>
-              <td>
-                <Action />
-              </td>
-            </tr>
-            <tr id="deliveryman">
-              <td>2</td>
-              <td>
-                <Avatar color={profile.color}>{profile.letters}</Avatar>
-              </td>
-              <td>Joao Alves</td>
-              <td>joaoa@mail.com</td>
-              <td>
-                <Action />
-              </td>
-            </tr>
+            {deliverymen.map((d) => (
+              <tr id="deliveryman">
+                <td>#{d.id}</td>
+                <td>
+                  {d.avatar ? (
+                    <ImgAvatar src={d.avatar.url} alt={d.name} />
+                  ) : (
+                    <Avatar color={d.avatarLetter.color}>
+                      {d.avatarLetter.letters}
+                    </Avatar>
+                  )}
+                </td>
+                <td>{d.name}</td>
+                <td>{d.email}</td>
+                <td>
+                  <Action />
+                </td>
+              </tr>
+            ))}
           </tbody>
         </table>
       </Content>
