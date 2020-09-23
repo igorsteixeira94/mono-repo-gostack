@@ -1,17 +1,9 @@
 import { darken } from 'polished';
 import styled from 'styled-components';
 
-export const Container = styled.div`
-  height: 100vh;
-  width: 100vw;
-  background: var(--color-bck);
-`;
-
-export const Content = styled.div`
-  width: 1000px;
-  margin: 24px auto;
-
+export const Wrapper = styled.main`
   header {
+    margin-top: 16px;
     display: flex;
     justify-content: space-between;
     align-items: center;

@@ -32,4 +32,20 @@ export const ActionsList = styled.div`
     text-shadow: 0px -1px 3px #00000057;
     color: #fff;
   }
+
+  /*Editar os children*/
+  button {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+
+    & + hr {
+      margin: 8px 0px;
+      border-top: 1px solid var(--color-border-input);
+    }
+
+    svg {
+      margin-right: 16px;
+    }
+  }
 `;

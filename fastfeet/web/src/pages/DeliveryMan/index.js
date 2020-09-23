@@ -1,19 +1,15 @@
+/* eslint-disable no-alert */
 import React, { useEffect, useState } from 'react';
 
-import api from '../../services/api';
+import { MdAdd } from 'react-icons/md';
 
-import Header from '../../components/Header';
-import Action from '../../components/Actions';
+import { toast } from 'react-toastify';
+import api from '../../services/api';
 
 import createLetterAvatar from '../../util/letterAvatar';
 
-import {
-  Container,
-  Content,
-  MenuDeliveryman,
-  Avatar,
-  ImgAvatar,
-} from './styles';
+import { MenuDeliveryman, DeliveryManWrapper } from './styles';
+import Table from '../../components/Table';
 
 function DeliveryMan({ history }) {
   const [deliveryman, setDeliveryman] = useState('');
@@ -30,7 +26,6 @@ function DeliveryMan({ history }) {
         ? null
         : createLetterAvatar(deliverymanItem.name, index),
     }));
-    console.tron.log(data);
     setDeliverymen(data);
   }
 
@@ -45,66 +40,51 @@ function DeliveryMan({ history }) {
     setDeliveryman(name);
   }
 
+  // Fuunção para deletar um entregador
+  async function handleDelete(id) {
+    console.tron.log(id);
+    const confirmation = window.confirm(
+      'Você deseja excluir esse entregador ?'
+    );
+
+    if (confirmation) {
+      try {
+        await api.delete(`/deliverymans/${id}`);
+        toast.success('Entregador deletado com sucesso');
+        loadDeliverymans();
+      } catch (error) {
+        console.tron.log(error);
+        toast.error('Houve um erro ao deletar o entregador');
+      }
+    }
+  }
+
   useEffect(() => {
     loadDeliverymans();
   }, []);
 
   return (
-    <Container>
-      <Header />
-      <Content>
-        <h2>Gerenciando entregadores</h2>
-        <MenuDeliveryman>
-          <input
-            type="text"
-            placeholder="Buscar por entregadores"
-            value={deliveryman}
-            onChange={(e) => handleSearch(e.target.value)}
-          />
-          <button
-            type="button"
-            onClick={() => {
-              history.push('/deliverymans/new');
-            }}
-          >
-            + Cadastrar
-          </button>
-        </MenuDeliveryman>
+    <DeliveryManWrapper>
+      <h2>Gerenciando entregadores</h2>
 
-        <table>
-          <thead>
-            <tr>
-              <th>ID</th>
-              <th>Foto</th>
-              <th>Nome</th>
-              <th>Email</th>
-              <th>Ações</th>
-            </tr>
-          </thead>
-          <tbody>
-            {deliverymen.map((d) => (
-              <tr id="deliveryman">
-                <td>#{d.id}</td>
-                <td>
-                  {d.avatar ? (
-                    <ImgAvatar src={d.avatar.url} alt={d.name} />
-                  ) : (
-                    <Avatar color={d.avatarLetter.color}>
-                      {d.avatarLetter.letters}
-                    </Avatar>
-                  )}
-                </td>
-                <td>{d.name}</td>
-                <td>{d.email}</td>
-                <td>
-                  <Action />
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </Content>
-    </Container>
+      <MenuDeliveryman>
+        <input
+          type="text"
+          placeholder="Buscar por entregadores"
+          value={deliveryman}
+          onChange={(e) => handleSearch(e.target.value)}
+        />
+        <button
+          type="button"
+          onClick={() => {
+            history.push('/deliverymans/new');
+          }}
+        >
+          <MdAdd size={20} color="#fff" /> Cadastrar
+        </button>
+      </MenuDeliveryman>
+      <Table data={deliverymen} handleDelete={handleDelete} />
+    </DeliveryManWrapper>
   );
 }
 
