@@ -18,6 +18,7 @@ routes.post('/sessions', SessionController.store);
 
 // Rotas dos destinatarios:
 routes.get('/recipients', RecipientController.index);
+routes.delete('/recipients/:id', RecipientController.delete);
 routes.post('/recipients', RecipientController.store);
 
 // Rota para entregadores
