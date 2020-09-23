@@ -1,31 +1,45 @@
 /* eslint-disable no-alert */
 import React, { useEffect, useState } from 'react';
 
-import { MdAdd } from 'react-icons/md';
+import { MdAdd, MdArrowForward, MdArrowBack } from 'react-icons/md';
 
 import { toast } from 'react-toastify';
 import api from '../../services/api';
 
 import createLetterAvatar from '../../util/letterAvatar';
 
-import { MenuDeliveryman, DeliveryManWrapper } from './styles';
+import {
+  MenuDeliveryman,
+  DeliveryManWrapper,
+  Pagination,
+  BtnPaginationBack,
+  BtnPaginationNext,
+} from './styles';
 import Table from '../../components/Table';
 
 function DeliveryMan({ history }) {
   const [deliveryman, setDeliveryman] = useState('');
+  const [page, setPage] = useState(1);
+  const [finalPage, setFinalPage] = useState(false);
   const [deliverymen, setDeliverymen] = useState([]);
 
   // Função para buscar os dados na api
-  async function loadDeliverymans(nameFilter = null) {
+  async function loadDeliverymans(nameFilter = null, page = 1) {
     const response = await api.get('/deliverymans', {
-      params: { q: nameFilter },
+      params: { q: nameFilter, page },
     });
+
     const data = response.data.map((deliverymanItem, index) => ({
       ...deliverymanItem,
       avatarLetter: deliverymanItem.avatar
         ? null
         : createLetterAvatar(deliverymanItem.name, index),
     }));
+    if (data.length === 0) {
+      setFinalPage(true);
+    } else {
+      setFinalPage(false);
+    }
     setDeliverymen(data);
   }
 
@@ -59,6 +73,14 @@ function DeliveryMan({ history }) {
     }
   }
 
+  async function pagination(type) {
+    const nextPage = type === 'back' ? page - 1 : page + 1;
+
+    await setPage(nextPage);
+
+    loadDeliverymans(deliveryman, nextPage);
+  }
+
   useEffect(() => {
     loadDeliverymans();
   }, []);
@@ -84,6 +106,30 @@ function DeliveryMan({ history }) {
         </button>
       </MenuDeliveryman>
       <Table data={deliverymen} handleDelete={handleDelete} />
+
+      <Pagination>
+        <BtnPaginationBack
+          type="button"
+          onClick={() => {
+            pagination('back');
+          }}
+          disabled={!!(page === 1)}
+        >
+          <MdArrowBack size={20} color="#fff" />
+          Anterior
+        </BtnPaginationBack>
+
+        <BtnPaginationNext
+          type="button"
+          onClick={() => {
+            pagination('next');
+          }}
+          disabled={finalPage}
+        >
+          Proximo
+          <MdArrowForward size={20} color="#fff" />
+        </BtnPaginationNext>
+      </Pagination>
     </DeliveryManWrapper>
   );
 }

@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { darken } from 'polished';
+import { darken, lighten } from 'polished';
 
 export const DeliveryManWrapper = styled.div`
   height: 100%;
@@ -52,5 +52,72 @@ export const MenuDeliveryman = styled.header`
     &:hover {
       background: ${darken(0.08, '#7D40E7')};
     }
+  }
+`;
+
+export const Pagination = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+`;
+
+export const BtnPaginationBack = styled.button`
+  outline: 0;
+  border: 0;
+  padding: 6px;
+  border-radius: 4px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  font-weight: bold;
+  font-size: 14px;
+  color: #fff;
+
+  svg {
+    fill: #fff;
+    margin-right: 4px;
+  }
+
+  background: var(--color-text-btn-bcg);
+  &:hover {
+    background: ${darken(0.08, '#7159c1')};
+  }
+
+  &:disabled {
+    background: ${lighten(0.2, '#7159c1')};
+    cursor: none;
+  }
+`;
+
+export const BtnPaginationNext = styled.button`
+  outline: 0;
+  border: 0;
+  padding: 6px 4px;
+  border-radius: 4px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  font-weight: bold;
+  font-size: 14px;
+  color: #fff;
+
+  svg {
+    fill: #fff;
+    margin-left: 8px;
+  }
+
+  background: var(--color-text-btn-bcg);
+
+  &:hover {
+    background: ${darken(0.08, '#7159c1')};
+  }
+
+  &:disabled {
+    background: ${lighten(0.2, '#7159c1')};
+    cursor: none;
   }
 `;
