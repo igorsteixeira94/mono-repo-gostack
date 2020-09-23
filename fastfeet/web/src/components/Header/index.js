@@ -1,11 +1,18 @@
 import React from 'react';
-
 import { NavLink } from 'react-router-dom';
-import { Container, HeaderWrapper } from './styles';
 
+import { useDispatch } from 'react-redux';
+import { signOut } from '../../store/modules/auth/actions';
+
+import { Container, HeaderWrapper } from './styles';
 import logo from '../../assets/logo.png';
 
 function Header() {
+  const dispatch = useDispatch();
+
+  function handleExit() {
+    dispatch(signOut());
+  }
   return (
     <Container>
       <HeaderWrapper>
@@ -28,7 +35,9 @@ function Header() {
         </nav>
         <div>
           <strong>Admin Fast Feet</strong>
-          <span>Sair do sistema</span>
+          <button type="button" onClick={handleExit}>
+            Sair do sistema
+          </button>
         </div>
       </HeaderWrapper>
     </Container>

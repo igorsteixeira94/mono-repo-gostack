@@ -53,7 +53,9 @@ export const HeaderWrapper = styled.header`
 
     align-items: center;
 
-    span {
+    button {
+      border: 0;
+      background: none;
       color: var(--color-exit-alert);
     }
   }

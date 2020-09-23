@@ -17,3 +17,14 @@ export function signInFailure() {
     type: '@auth/SIGN_IN_FAILURE',
   };
 }
+
+export function signOut() {
+  return {
+    type: '@auth/SIGN_OUT_REQUEST',
+  };
+}
+export function signOutSuccess() {
+  return {
+    type: '@auth/SIGN_OUT_SUCCESS',
+  };
+}
