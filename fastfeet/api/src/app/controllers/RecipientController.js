@@ -80,6 +80,14 @@ class RecipientController {
     }
     return res.status(201).json();
   }
+
+  async show(req, res) {
+    const { id } = req.params;
+
+    const recipient = await Recipient.findByPk(id);
+
+    return res.json(recipient);
+  }
 }
 
 export default new RecipientController();

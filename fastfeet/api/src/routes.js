@@ -18,6 +18,8 @@ routes.post('/sessions', SessionController.store);
 
 // Rotas dos destinatarios:
 routes.get('/recipients', RecipientController.index);
+routes.get('/recipients/:id', RecipientController.show);
+
 routes.delete('/recipients/:id', RecipientController.delete);
 routes.post('/recipients', RecipientController.store);
 
