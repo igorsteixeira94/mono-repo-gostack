@@ -62,6 +62,7 @@ export default new (class DeliverymanController {
     if (nameFilter) {
       const deliverymans = await Deliveryman.findAll({
         attributes: ['id', 'name', 'email'],
+        order: ['id'],
         where: {
           name: { [Op.iLike]: `%${nameFilter}%` },
         },
@@ -73,7 +74,7 @@ export default new (class DeliverymanController {
     }
     const deliverymans = await Deliveryman.findAll({
       attributes: ['id', 'name', 'email'],
-
+      order: ['id'],
       include: { model: File, as: 'avatar', attributes: ['path', 'url'] },
       limit: 5,
       offset: (page - 1) * 5,
