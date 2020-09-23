@@ -16,16 +16,16 @@ export const Wrapper = styled.main`
         border-radius: 8px;
         border: 0;
         background: none;
-        background: #7159c1;
+        background: var(--color-text-btn-bcg);
 
         font-weight: bold;
-        color: #fff;
+        color: var(--color-bcg-form);
 
         display: flex;
         align-items: center;
 
         svg {
-          fill: #fff;
+          fill: var(--color-bcg-form);
           margin-right: 6px;
         }
 
@@ -36,6 +36,13 @@ export const Wrapper = styled.main`
 
       button + button {
         margin-left: 16px;
+      }
+
+      .back {
+        background: var(--color-exit-alert);
+        &:hover {
+          background: ${darken(0.08, '#DE3B3B')};
+        }
       }
     }
   }
@@ -51,7 +58,7 @@ export const Main = styled.main`
   margin: 24px auto;
 
   border-radius: 4px;
-  background: #fff;
+  background: var(--color-bcg-form);
 
   div.inputs {
     width: 100%;

@@ -36,6 +36,9 @@ export default createGlobalStyle`
   border-collapse:separate; 
   border-spacing: 0 10px;
 }
+  button,input{
+    outline: none;
+  }
 
   body{
     -webkit-font-smoothing:antialiased;

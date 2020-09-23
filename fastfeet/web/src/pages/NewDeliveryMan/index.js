@@ -6,6 +6,7 @@ import AvatarInput from '../../components/Avatar';
 
 import { Wrapper, Main } from './styles';
 import api from '../../services/api';
+import history from '../../services/history';
 
 function NewDeliveryMan({ location: { state } }) {
   const [name, setName] = useState('');
@@ -44,11 +45,6 @@ function NewDeliveryMan({ location: { state } }) {
       }
 
       if (state) {
-        console.tron.log({
-          email,
-          name,
-          avatar_id,
-        });
         await api.put(`/deliverymans/${state.id}`, {
           email,
           name,
@@ -89,7 +85,13 @@ function NewDeliveryMan({ location: { state } }) {
       <header>
         <h1>Cadastro de entregadores</h1>
         <div>
-          <button type="button">
+          <button
+            type="button"
+            className="back"
+            onClick={() => {
+              history.goBack();
+            }}
+          >
             <MdArrowBack size={20} />
             VOLTAR
           </button>
