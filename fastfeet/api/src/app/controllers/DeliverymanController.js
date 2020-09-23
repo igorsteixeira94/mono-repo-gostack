@@ -14,7 +14,7 @@ export default new (class DeliverymanController {
       return res.status(400).json({ error: 'Validation fails' });
     }
 
-    const { name, email } = req.body;
+    const { name, email, avatar_id } = req.body;
 
     const deliverymanExists = await Deliveryman.findOne({ where: { email } });
 
@@ -22,7 +22,7 @@ export default new (class DeliverymanController {
       return res.status(400).json({ error: 'Deliveryman already exists' });
     }
 
-    const deliveryman = await Deliveryman.create({ name, email });
+    const deliveryman = await Deliveryman.create({ name, email, avatar_id });
     return res.json(deliveryman);
   }
 
@@ -30,7 +30,7 @@ export default new (class DeliverymanController {
     const schema = Yup.object().shape({
       name: Yup.string(),
       email: Yup.string().email(),
-      avatar_id: Yup.number(),
+      avatar_id: Yup.number().nullable(),
     });
 
     if (!(await schema.isValid(req.body))) {
@@ -66,16 +66,17 @@ export default new (class DeliverymanController {
           name: { [Op.iLike]: `%${nameFilter}%` },
         },
         include: { model: File, as: 'avatar', attributes: ['path', 'url'] },
-        limit: 10,
-        offset: (page - 1) * 20,
+        limit: 5,
+        offset: (page - 1) * 5,
       });
       return res.json(deliverymans);
     }
     const deliverymans = await Deliveryman.findAll({
       attributes: ['id', 'name', 'email'],
+
       include: { model: File, as: 'avatar', attributes: ['path', 'url'] },
-      limit: 10,
-      offset: (page - 1) * 20,
+      limit: 5,
+      offset: (page - 1) * 5,
     });
 
     return res.json(deliverymans);
