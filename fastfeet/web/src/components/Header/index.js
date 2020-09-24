@@ -19,7 +19,7 @@ function Header() {
         <nav>
           <img src={logo} alt="FastFeet" />
           <ul>
-            <NavLink to="/dashboard" activeClassName="active">
+            <NavLink to="/deliveries" activeClassName="active">
               <li>ENCOMENDAS</li>
             </NavLink>
             <NavLink to="/deliverymans" activeClassName="active">

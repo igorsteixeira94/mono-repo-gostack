@@ -22,7 +22,7 @@ export default function RouteWrapper({
             <Component {...props} />
           </Layout>
         ) : (
-          <Redirect to={{ pathname: isPrivate ? '/' : 'dashboard' }} />
+          <Redirect to={{ pathname: isPrivate ? '/' : 'deliveries' }} />
         );
       }}
     />

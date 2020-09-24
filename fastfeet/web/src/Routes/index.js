@@ -13,12 +13,14 @@ import NewDeliveryMan from '../pages/NewDeliveryMan';
 import Recipient from '../pages/Recipient';
 import NewRecipient from '../pages/NewRecipient';
 
+import NewDeliveries from '../pages/NewDeliveries';
+
 export default function Routes() {
   return (
     <Switch>
       <Route path="/" exact component={Login} />
 
-      <Route path="/dashboard" exact component={Dashboard} isPrivate />
+      <Route path="/deliveries" exact component={NewDeliveries} isPrivate />
 
       <Route path="/deliverymans" exact component={DeliveryMan} isPrivate />
       <Route
