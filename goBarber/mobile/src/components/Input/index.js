@@ -1,0 +1,22 @@
+import React, { forwardRef } from 'react';
+import PropTypes from 'prop-types';
+import Icon from 'react-native-vector-icons/MaterialIcons';
+import { Container, TInput } from './styles';
+
+const Input = ({ style, icon, ...rest }, ref) => (
+  <Container style={style}>
+    {icon && <Icon name={icon} color="rgba(255,255,255,0.6)" />}
+    <TInput {...rest} ref={ref} />
+  </Container>
+);
+
+export default forwardRef(Input);
+
+Input.propTypes = {
+  icon: PropTypes.string,
+  style: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
+};
+Input.defaultProps = {
+  style: {},
+  icon: null,
+};
