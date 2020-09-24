@@ -15,10 +15,8 @@ export const ActionsList = styled.div`
   padding: 16px;
   display: ${(props) => (props.visible ? 'block' : 'none')};
   position: absolute;
-  top: 30px;
   left: calc(50% - 75px);
   width: 150px;
-  height: 90px;
   box-shadow: 0px 0px 2px #00000026;
   background: #fff;
   border-radius: 6px;

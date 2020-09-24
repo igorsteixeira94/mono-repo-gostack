@@ -4,7 +4,6 @@ import { Switch } from 'react-router-dom';
 import Route from './Route';
 
 import Login from '../pages/Login';
-import Dashboard from '../pages/Dashboard';
 import NotFound from '../pages/NotFound';
 
 import DeliveryMan from '../pages/DeliveryMan';
@@ -13,6 +12,7 @@ import NewDeliveryMan from '../pages/NewDeliveryMan';
 import Recipient from '../pages/Recipient';
 import NewRecipient from '../pages/NewRecipient';
 
+import Deliveries from '../pages/Deliveries';
 import NewDeliveries from '../pages/NewDeliveries';
 
 export default function Routes() {
@@ -20,7 +20,8 @@ export default function Routes() {
     <Switch>
       <Route path="/" exact component={Login} />
 
-      <Route path="/deliveries" exact component={NewDeliveries} isPrivate />
+      <Route path="/deliveries" exact component={Deliveries} isPrivate />
+      <Route path="/deliveries/new" exact component={NewDeliveries} isPrivate />
 
       <Route path="/deliverymans" exact component={DeliveryMan} isPrivate />
       <Route
