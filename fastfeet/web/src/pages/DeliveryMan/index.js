@@ -46,7 +46,7 @@ function DeliveryMan({ history }) {
         ? null
         : createLetterAvatar(deliverymanItem.name, index),
     }));
-    if (data.length === 0) {
+    if (data.length === 0 || data.length < 5) {
       setFinalPage(true);
     } else {
       setFinalPage(false);
