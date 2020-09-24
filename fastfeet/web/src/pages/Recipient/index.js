@@ -1,85 +1,79 @@
-/* eslint-disable no-alert */
 import React, { useEffect, useState } from 'react';
 
 import {
   MdAdd,
-  MdArrowForward,
   MdArrowBack,
+  MdArrowForward,
   MdEdit,
   MdDelete,
 } from 'react-icons/md';
 
 import { toast } from 'react-toastify';
-import api from '../../services/api';
-
-import createLetterAvatar from '../../util/letterAvatar';
-
 import {
-  MenuDeliveryman,
-  DeliveryManWrapper,
+  RecipientWrapper,
+  MenuRecipient,
   Pagination,
   BtnPaginationBack,
   BtnPaginationNext,
-  AvatarLetter,
-  ImgAvatar,
   BtnEdit,
   BtnDelete,
 } from './styles';
+
 import Table from '../../components/Table';
+import history from '../../services/history';
+import api from '../../services/api';
 import Action from '../../components/Actions';
 
-function DeliveryMan({ history }) {
-  const [deliveryman, setDeliveryman] = useState('');
+function Recipient() {
   const [page, setPage] = useState(1);
   const [finalPage, setFinalPage] = useState(false);
-  const [deliverymen, setDeliverymen] = useState([]);
+  const [recipient, setRecipient] = useState('');
+  const [recipients, setRecipients] = useState([]);
 
   // Função para buscar os dados na api
-  async function loadDeliverymans(nameFilter = null, page = 1) {
-    const response = await api.get('/deliverymans', {
+  async function loadRecipients(nameFilter = null, page = 1) {
+    const response = await api.get('/recipients', {
       params: { q: nameFilter, page },
     });
 
-    const data = response.data.map((deliverymanItem, index) => ({
-      ...deliverymanItem,
-      avatarLetter: deliverymanItem.avatar
-        ? null
-        : createLetterAvatar(deliverymanItem.name, index),
+    const data = response.data.map((recipient) => ({
+      id: recipient.id,
+      name: recipient.name,
+      andress: `${recipient.street}, ${recipient.number}, ${recipient.city}-${recipient.state}`,
     }));
-    if (data.length === 0) {
+
+    if (data.length === 0 || data.length < 5) {
       setFinalPage(true);
     } else {
       setFinalPage(false);
     }
-    setDeliverymen(data);
+    setRecipients(data);
   }
 
   // Função que executa a cada letra digitada no input
   async function handleSearch(name) {
     if (name.length >= 3) {
-      loadDeliverymans(name);
+      loadRecipients(name);
     }
     if (name === '') {
-      loadDeliverymans();
+      loadRecipients();
     }
-    setDeliveryman(name);
+    setRecipient(name);
   }
 
   // Fuunção para deletar um entregador
   async function handleDelete(id) {
     console.tron.log(id);
-    const confirmation = window.confirm(
-      'Você deseja excluir esse entregador ?'
-    );
+    const confirmation = window.confirm('Você deseja excluir esse cliente ?');
 
     if (confirmation) {
       try {
-        await api.delete(`/deliverymans/${id}`);
-        toast.success('Entregador deletado com sucesso');
-        loadDeliverymans();
+        await api.delete(`/recipients/${id}`);
+        toast.success('Cliente deletado com sucesso');
+        loadRecipients();
       } catch (error) {
         console.tron.log(error);
-        toast.error('Houve um erro ao deletar o entregador');
+        toast.error('Houve um erro ao deletar o cliente');
       }
     }
   }
@@ -88,66 +82,55 @@ function DeliveryMan({ history }) {
   async function pagination(type) {
     const nextPage = type === 'back' ? page - 1 : page + 1;
 
-    await setPage(nextPage);
+    setPage(nextPage);
 
-    loadDeliverymans(deliveryman, nextPage);
+    loadRecipients(recipient, nextPage);
   }
 
   useEffect(() => {
-    loadDeliverymans();
+    loadRecipients();
   }, []);
 
   return (
-    <DeliveryManWrapper>
-      <h2>Gerenciando entregadores</h2>
-
-      <MenuDeliveryman>
+    <RecipientWrapper>
+      <h2>Destinatários</h2>
+      <MenuRecipient>
         <input
           type="text"
           placeholder="Buscar por entregadores"
-          value={deliveryman}
+          value={recipient}
           onChange={(e) => handleSearch(e.target.value)}
         />
         <button
           type="button"
           onClick={() => {
-            history.push('/deliverymans/new');
+            history.push('/recipients/new');
           }}
         >
           <MdAdd size={20} color="#fff" /> Cadastrar
         </button>
-      </MenuDeliveryman>
+      </MenuRecipient>
       <Table>
         <thead>
           <tr>
             <th>ID</th>
-            <th>Foto</th>
             <th>Nome</th>
-            <th>Email</th>
-            <th>Ações</th>
+            <th colSpan="2">Endereço</th>
+            <th className="action">Ações</th>
           </tr>
         </thead>
         <tbody>
-          {deliverymen.map((d) => (
-            <tr id="deliveryman" key={d.id}>
+          {recipients.map((d) => (
+            <tr id="recipents" key={d.id}>
               <td>#{d.id}</td>
-              <td>
-                {d.avatar ? (
-                  <ImgAvatar src={d.avatar.url} />
-                ) : (
-                  <AvatarLetter color={d.avatarLetter.color}>
-                    {d.avatarLetter.letters}
-                  </AvatarLetter>
-                )}
-              </td>
               <td>{d.name}</td>
-              <td>{d.email}</td>
-              <td>
+              <td colSpan="2">{d.andress}</td>
+              <td id="actions">
                 <Action>
                   <BtnEdit
                     type="button"
                     onClick={() => {
-                      history.push(`/deliverymans/edit`, d);
+                      history.push(`/recipients/${d.id}`, d);
                     }}
                   >
                     <MdEdit size={20} color="#4d85ee" />
@@ -193,8 +176,8 @@ function DeliveryMan({ history }) {
           <MdArrowForward size={20} color="#fff" />
         </BtnPaginationNext>
       </Pagination>
-    </DeliveryManWrapper>
+    </RecipientWrapper>
   );
 }
 
-export default DeliveryMan;
+export default Recipient;

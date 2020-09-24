@@ -1,15 +1,25 @@
-import styled from 'styled-components';
 import { darken, lighten } from 'polished';
+import styled from 'styled-components';
 
-export const DeliveryManWrapper = styled.div`
+export const RecipientWrapper = styled.div`
   height: 100%;
 
   h2 {
     margin-top: 16px;
   }
+
+  table th,
+  table tr td {
+    text-align: left;
+    padding: 0px 8px;
+  }
+
+  td#actions {
+    text-align: center;
+  }
 `;
 
-export const MenuDeliveryman = styled.header`
+export const MenuRecipient = styled.header`
   display: flex;
   justify-content: space-between;
   margin-top: 16px;
@@ -120,27 +130,6 @@ export const BtnPaginationNext = styled.button`
     background: ${lighten(0.2, '#7159c1')};
     cursor: none;
   }
-`;
-
-export const AvatarLetter = styled.div`
-  color: ${(props) => props.color};
-  width: 35px;
-  height: 35px;
-  border-radius: 50%;
-  background: red;
-  margin: 8px auto;
-  background: ${(props) => lighten(0.25, props.color)};
-  display: flex;
-  align-items: center;
-  justify-content: center;
-`;
-
-export const ImgAvatar = styled.img`
-  width: 35px;
-  height: 35px;
-  border-radius: 50%;
-
-  margin: 8px auto;
 `;
 
 export const BtnEdit = styled.button`

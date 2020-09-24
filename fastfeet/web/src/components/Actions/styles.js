@@ -2,6 +2,7 @@ import styled from 'styled-components';
 
 export const Container = styled.div`
   position: relative;
+  padding: 10px 0px;
 
   button {
     border: 0;
