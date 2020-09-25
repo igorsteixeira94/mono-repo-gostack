@@ -15,6 +15,7 @@ export default createGlobalStyle`
     --color-border-input:#DDDDDD;
     --color-placeholder:#999999;
     --color-text:#444444;
+    --color-text-light:#666666;
     --color-bck:#F5F5F5;
     --color-exit-alert:#DE3B3B;
   }

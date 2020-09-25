@@ -14,6 +14,7 @@ import NewRecipient from '../pages/NewRecipient';
 
 import Deliveries from '../pages/Deliveries';
 import NewDeliveries from '../pages/NewDeliveries';
+import Problems from '../pages/Problems';
 
 export default function Routes() {
   return (
@@ -21,7 +22,7 @@ export default function Routes() {
       <Route path="/" exact component={Login} />
 
       <Route path="/deliveries" exact component={Deliveries} isPrivate />
-      <Route path="/deliveries/new" exact component={NewDeliveries} isPrivate />
+      <Route path="/deliveries/:id" exact component={NewDeliveries} isPrivate />
 
       <Route path="/deliverymans" exact component={DeliveryMan} isPrivate />
       <Route
@@ -32,6 +33,8 @@ export default function Routes() {
       />
       <Route path="/recipients" exact component={Recipient} isPrivate />
       <Route path="/recipients/:id" exact component={NewRecipient} isPrivate />
+
+      <Route path="/problems" exact component={Problems} isPrivate />
 
       <Route path="*" component={NotFound} isPrivate />
       <Route path="*" component={NotFound} />

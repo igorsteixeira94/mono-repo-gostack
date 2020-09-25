@@ -3,8 +3,8 @@ import { MdMoreHoriz } from 'react-icons/md';
 
 import { Container, ActionsList } from './styles';
 
-function Actions({ children }) {
-  const [isVisible, setIsVisible] = useState(false);
+function Actions({ children, visible }) {
+  const [isVisible, setIsVisible] = useState(visible);
   return (
     <Container>
       <button
@@ -13,9 +13,9 @@ function Actions({ children }) {
           setIsVisible(!isVisible);
         }}
       >
-        <MdMoreHoriz color="#eee" size={24} />
+        <MdMoreHoriz color="#eee" size={24} />{' '}
+        <ActionsList visible={isVisible}>{children}</ActionsList>
       </button>
-      <ActionsList visible={isVisible}>{children}</ActionsList>
     </Container>
   );
 }

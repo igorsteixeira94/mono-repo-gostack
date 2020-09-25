@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { MdAdd, MdEdit, MdDelete, MdRemoveRedEye } from 'react-icons/md';
 import { toast } from 'react-toastify';
 import colorStatus from '../../styles/colorsStatus';
@@ -20,19 +20,14 @@ import {
 import history from '../../services/history';
 import api from '../../services/api';
 import createLetterAvatar from '../../util/letterAvatar';
+import Modal from '../../components/Modal';
 
 function Deliveries() {
-  const [recipient, setRecipient] = useState('');
+  const [nameDelivery, setNameDelivery] = useState('');
   const [deliveries, setDeliveries] = useState([]);
-  function handleSearch() {}
-  async function handleDelete(id) {
-    try {
-      await api.delete(`/parcels/${id}`);
-      toast.success('Encomenda cancelada com sucesso');
-    } catch (error) {
-      toast.error('Encomenda já deve ter sido cancelada');
-    }
-  }
+
+  const [dropdown, setDropdown] = useState(false);
+  const modalRef = useRef(null);
 
   // Status do delivery
   function statusDelivery(delivery) {
@@ -48,8 +43,10 @@ function Deliveries() {
     return 'pendente';
   }
 
-  async function loadData() {
-    const response = await api.get('/parcels');
+  async function loadData(name = null) {
+    const response = await api.get('/parcels', {
+      params: { q: name },
+    });
 
     if (response.data.length > 0) {
       const data = response.data.map((r) => ({
@@ -69,6 +66,45 @@ function Deliveries() {
     }
   }
 
+  // Função que executa a cada letra digitada no input
+  async function handleSearch(name) {
+    if (name.length >= 3) {
+      loadData(name);
+    }
+    if (name === '') {
+      loadData();
+    }
+    setNameDelivery(name);
+  }
+
+  async function handleDelete(id) {
+    try {
+      await api.delete(`/parcels/${id}`);
+      toast.success('Encomenda cancelada com sucesso');
+      loadData();
+    } catch (error) {
+      toast.error('Encomenda já deve ter sido cancelada');
+    }
+  }
+
+  const closeDropdown = (event) => {
+    event.stopPropagation(); // impede de executar listeners dos filhos
+    const contain = modalRef.current.contains(event.target);
+    if (!contain) {
+      // se clicar fora do modal, ele DESaparece
+      console.log('hidden');
+      setDropdown(false);
+      document.body.removeEventListener('click', closeDropdown);
+    }
+  };
+
+  const toggleDropdown = () => {
+    console.log('show');
+    // se clicar no botão, modal aparece
+    setDropdown(true);
+    document.body.addEventListener('click', closeDropdown);
+  };
+
   useEffect(() => {
     loadData();
   }, []);
@@ -79,8 +115,8 @@ function Deliveries() {
       <MenuDelivery>
         <input
           type="text"
-          placeholder="Buscar por entregadores"
-          value={recipient}
+          placeholder="Buscar por encomenda"
+          value={nameDelivery}
           onChange={(e) => handleSearch(e.target.value)}
         />
         <button
@@ -121,17 +157,14 @@ function Deliveries() {
               <td>{d.state}</td>
               <td>
                 <StatusDelivery color={colorStatus[d.status]}>
-                  <span>{d.status}</span>
+                  <span />
+                  <small>{d.status}</small>
                 </StatusDelivery>
               </td>
               <td id="actions">
                 <Action>
-                  <BtnView
-                    type="button"
-                    onClick={() => {
-                      handleDelete(d.id);
-                    }}
-                  >
+                  <BtnView type="button" onClick={toggleDropdown}>
+                    <Modal modalRef={modalRef} show={dropdown} id={d.id} />
                     <MdRemoveRedEye size={20} color="#8E5BE8" />
                     Visualizar
                   </BtnView>
@@ -139,7 +172,7 @@ function Deliveries() {
                   <BtnEdit
                     type="button"
                     onClick={() => {
-                      history.push(`/deliveries/new`);
+                      history.push(`/deliveries/${d.id}`, { d });
                     }}
                   >
                     <MdEdit size={20} color="#4d85ee" />

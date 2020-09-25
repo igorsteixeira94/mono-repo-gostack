@@ -1,18 +1,25 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { MdArrowBack, MdAdd } from 'react-icons/md';
 
 import { AsyncPaginate } from 'react-select-async-paginate';
 import { toast } from 'react-toastify';
+import { useParams } from 'react-router-dom';
 import history from '../../services/history';
 import api from '../../services/api';
 
 import { Wrapper, Main, Selection } from './styles';
 
-function NewDeliveries() {
+function NewDeliveries(props) {
   const [deliveryName, setDeliveryName] = useState('');
   const [recipient, setRecipient] = useState('');
   const [deliveryman, setDeliveryman] = useState('');
+  const { id } = useParams();
 
+  function cleanForm() {
+    setDeliveryName('');
+    setDeliveryman('');
+    setRecipient('');
+  }
   // Carregar os dados dos destinatários no select, usando pagination
   async function loadDataDeliverymans(search, load, { page }) {
     console.log(page);
@@ -78,30 +85,68 @@ function NewDeliveries() {
   }
 
   // Pegar id do destinatário
-  function handleSetRecipient({ value }) {
+  function handleSetRecipient(value) {
     setRecipient(value);
   }
 
   // Pegar id do entregador
-  function handleSetDeliveryman({ value }) {
+  function handleSetDeliveryman(value) {
     setDeliveryman(value);
   }
 
   // Enviar os dados para a api
   async function handleSaveDelivery() {
-    try {
-      await api.post('/parcels', {
-        recipient_id: recipient,
-        deliveryman_id: deliveryman,
-        product: deliveryName,
-      });
-      toast.success('Encomenda cadastrada com sucesso !');
-    } catch (err) {
-      toast.error(
-        'Houve um problema para cadastrar a encomenda ! Verifique os dados'
-      );
+    if (id === 'new') {
+      try {
+        await api.post('/parcels', {
+          recipient_id: recipient.value,
+          deliveryman_id: deliveryman.value,
+          product: deliveryName,
+        });
+        toast.success('Encomenda cadastrada com sucesso !');
+        cleanForm();
+      } catch (err) {
+        toast.error(
+          'Houve um problema para cadastrar a encomenda ! Verifique os dados'
+        );
+      }
+    } else {
+      try {
+        await api.put(`/parcels/${id}`, {
+          recipient_id: recipient.value,
+          deliveryman_id: deliveryman.value,
+          product: deliveryName,
+        });
+        toast.success('Encomenda editada com sucesso !');
+        cleanForm();
+      } catch (err) {
+        toast.error(
+          'Houve um problema para editar a encomenda ! Verifique os dados'
+        );
+      }
     }
   }
+
+  useEffect(() => {
+    if (id === 'new') return;
+
+    async function loadDataEdit() {
+      const response = await api.get(`/parcels/${id}`);
+
+      console.tron.log(response.data);
+      const { data } = response;
+      setDeliveryName(data.product);
+      setDeliveryman({
+        id: data.deliveryman?.id,
+        label: data.deliveryman?.name,
+      });
+      setRecipient({
+        id: data.recipient?.id,
+        label: data.recipient?.name,
+      });
+    }
+    loadDataEdit();
+  }, []);
 
   return (
     <Wrapper>
@@ -143,6 +188,7 @@ function NewDeliveries() {
             <div>
               <strong>Destinatário</strong>
               <AsyncPaginate
+                value={recipient || ''}
                 onChange={handleSetRecipient}
                 loadOptions={loadDataRecipients}
                 additional={{ page: 1 }}
@@ -152,6 +198,7 @@ function NewDeliveries() {
             <div>
               <strong>Entregador</strong>
               <AsyncPaginate
+                value={deliveryman}
                 onChange={handleSetDeliveryman}
                 loadOptions={loadDataDeliverymans}
                 additional={{ page: 1 }}

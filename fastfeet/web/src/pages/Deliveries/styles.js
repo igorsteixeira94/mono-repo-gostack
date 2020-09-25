@@ -82,16 +82,24 @@ export const BtnView = styled.button`
 `;
 
 export const StatusDelivery = styled.div`
-  text-align: right;
-  padding: 2px 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px;
 
-  span {
+  small {
     color: ${(props) => props.color};
     font-weight: bold;
     font-size: 12px;
+  }
 
+  span {
     display: block;
-    margin-left: 4px;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: ${(props) => props.color};
+    margin-right: 10px;
   }
 
   text-transform: uppercase;
@@ -99,22 +107,6 @@ export const StatusDelivery = styled.div`
 
   border-radius: 12px;
   width: 70%;
-
-  position: relative;
-
-  &::before {
-    position: absolute;
-
-    content: '';
-
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-
-    top: calc(50% - 4px);
-    left: 8px;
-    background: ${(props) => props.color};
-  }
 `;
 
 export const AvatarLetter = styled.div`
