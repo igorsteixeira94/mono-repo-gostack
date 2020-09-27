@@ -1,16 +1,15 @@
 import { all, call, put, takeLatest } from 'redux-saga/effects';
-import {Alert} from 'react-native'
+import { Alert } from 'react-native';
 import { updateProfileFailure, updateProfileSuccess } from './actions';
 import api from '../../../services/api';
 
 export function* updateProfile({ payload }) {
   try {
-    const { name, email, avatar_id, ...rest } = payload.data;
+    const { name, email, ...rest } = payload.data;
 
     const profile = {
       name,
       email,
-      avatar_id,
       ...(rest.oldPassword ? rest : {}),
     };
 

@@ -36,6 +36,7 @@ export default function TabNavigation() {
         activeTintColor: '#fff',
         activeBackgroundColor: '#8d41a8',
         inactiveBackgroundColor: '#a873ba',
+        keyboardHidesTabBar: true,
       }}
     >
       <Screen

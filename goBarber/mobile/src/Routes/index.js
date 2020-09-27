@@ -14,7 +14,10 @@ function Routes() {
   const signed = useSelector((state) => state.auth.signed);
   return (
     <NavigationContainer>
-      <Stack.Navigator screenOptions={{ headerShown: false }}>
+      <Stack.Navigator
+        screenOptions={{ headerShown: false }}
+        initialRouteName="SignIn"
+      >
         {signed ? (
           <Stack.Screen name="Navigation" component={TabNavigation} />
         ) : (
