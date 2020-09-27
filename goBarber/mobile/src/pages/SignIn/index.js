@@ -1,6 +1,7 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import { Image } from 'react-native';
-
+import { useDispatch, useSelector } from 'react-redux';
+import { signInRequest } from '../../store/modules/auth/actions';
 import logo from '../../assets/logo.png';
 import Background from '../../components/Background';
 
@@ -14,9 +15,17 @@ import {
 } from './styles';
 
 function SignIn({ navigation }) {
+  const dispatch = useDispatch();
+  const loading = useSelector((state) => state.auth.loading);
+
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
   const passwordRef = useRef();
 
-  function handleSubmit() {}
+  function handleSubmit() {
+    dispatch(signInRequest(email, password));
+  }
 
   return (
     <Background>
@@ -32,6 +41,8 @@ function SignIn({ navigation }) {
             autoCapitalize="none"
             returnKeyType="next"
             onSubmitEditing={() => passwordRef.current.focus()}
+            value={email}
+            onChangeText={setEmail}
           />
           <FormInput
             icon="lock-outline"
@@ -40,8 +51,12 @@ function SignIn({ navigation }) {
             ref={passwordRef}
             returnKeyType="send"
             onSubmitEditing={handleSubmit}
+            value={password}
+            onChangeText={setPassword}
           />
-          <SubmitButton onPress={() => {}}>Acessar</SubmitButton>
+          <SubmitButton loading={loading} onPress={handleSubmit}>
+            Acessar
+          </SubmitButton>
           <SignLink
             onPress={() => {
               navigation.navigate('SignUp');
