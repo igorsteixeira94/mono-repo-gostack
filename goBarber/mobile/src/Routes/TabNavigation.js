@@ -19,7 +19,7 @@ export default function TabNavigation() {
           borderTopColor: '#8d41a8',
         },
         tabStyle: {
-          flexDirection: 'row',
+          flexDirection: 'column',
           alignItems: 'center',
           justifyContent: 'center',
         },
@@ -44,7 +44,7 @@ export default function TabNavigation() {
         options={{
           tabBarLabel: 'Appointment',
           tabBarIcon: ({ color }) => (
-            <Icon name="person" size={20} color={color} />
+            <Icon name="event" size={20} color={color} />
           ),
         }}
       />
@@ -52,7 +52,7 @@ export default function TabNavigation() {
         name="Profile"
         component={Profile}
         options={{
-          tabBarLabel: 'Profile',
+          tabBarLabel: 'Meu Perfil',
 
           tabBarIcon: ({ color }) => (
             <Icon name="person" size={20} color={color} />
