@@ -6,7 +6,7 @@ import { StatusBar } from 'react-native';
 import './config/ReactotronConfig';
 
 import { persistor, store } from './store';
-import Routes from './routes';
+import Routes from './Routes';
 
 const src = () => (
   <Provider store={store}>
