@@ -24,6 +24,13 @@
     - Redux-Saga
     - Redux-Persist
     - Consumo de api
+
+  - Organização e produtividade
+    - Styled-Component
+    - EditorConfig
+    - Eslint e Prettier 
+    - DotEnv
+    - Docker e docker-compose
     
     
     

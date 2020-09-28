@@ -3,6 +3,7 @@ import express from 'express';
 import path from 'path';
 import * as Sentry from '@sentry/node';
 import Youch from 'youch';
+import cors from 'cors';
 import * as Tracing from '@sentry/tracing';
 import sentryConfig from './config/sentry';
 import 'express-async-errors';
@@ -31,6 +32,7 @@ class App {
 
   middlewares() {
     this.server.use(Sentry.Handlers.requestHandler());
+    this.server.use(cors());
     this.server.use(Sentry.Handlers.tracingHandler());
     this.server.use(express.json());
     this.server.use(

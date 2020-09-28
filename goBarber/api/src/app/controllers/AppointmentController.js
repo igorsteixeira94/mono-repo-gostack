@@ -85,7 +85,7 @@ class AppointmentController {
     const formattedDate = format(
       hourStart,
       "'dia' dd 'de' MMMM', às' H:mm'h' ",
-      { locate: pt }
+      { locale: pt }
     );
     await Notification.create({
       content: `Novo agendamento de ${user.name} para ${formattedDate}`,
