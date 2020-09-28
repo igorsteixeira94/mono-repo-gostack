@@ -12,11 +12,12 @@ const DateInput = ({ date, onChange }) => {
 
   const dateFormatted = useMemo(
     () => format(date, "dd 'de' MMMM 'de' yyyy", { locale: pt }),
-    [date],
+    [date]
   );
 
   function setDate(event, selectedDate) {
     onChange(selectedDate);
+    setShow(false);
   }
 
   return (
