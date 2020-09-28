@@ -8,8 +8,8 @@ export default new (class DeliveryProblemsController {
     const { page = 1 } = req.query;
     const problemas = await DeliveryProblems.findAll({
       order: [['created_at', 'DESC']],
-      limit: 10,
-      offset: (page - 1) * 10,
+      limit: 5,
+      offset: (page - 1) * 5,
       include: { model: Parcel, as: 'parcel', where: { canceled_at: null } },
     });
     return res.json(problemas);

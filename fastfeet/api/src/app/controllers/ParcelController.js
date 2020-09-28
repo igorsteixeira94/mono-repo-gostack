@@ -1,4 +1,5 @@
 import * as Yup from 'yup';
+import { Op } from 'sequelize';
 import Parcel from '../models/Parcel';
 import Deliveryman from '../models/Deliveryman';
 import Recipient from '../models/Recipient';
@@ -57,11 +58,16 @@ export default new (class ParcelController {
   }
 
   async index(req, res) {
-    const { page = 1 } = req.query;
+    const { page = 1, q: nameFilter = '' } = req.query;
+
     const parcels = await Parcel.findAll({
       attributes: { exclude: ['createdAt', 'updatedAt'] },
       limit: 10,
+      order: ['id'],
       offset: (page - 1) * 10,
+      where: {
+        product: { [Op.iLike]: `%${nameFilter}%` },
+      },
       include: [
         {
           model: Recipient,
@@ -161,11 +167,14 @@ export default new (class ParcelController {
 
   async delete(req, res) {
     const { id } = req.params;
-    const parcelDeleteSucess = await Parcel.destroy({ where: { id } });
+    const parcelDeleteSucess = await Parcel.findByPk(id);
 
-    if (parcelDeleteSucess < 1) {
+    if (!parcelDeleteSucess) {
       return res.status(400).json({ error: "Parcel don't exist" });
     }
+
+    parcelDeleteSucess.update({ canceled_at: new Date() });
+    await parcelDeleteSucess.save();
 
     return res.status(201).json();
   }

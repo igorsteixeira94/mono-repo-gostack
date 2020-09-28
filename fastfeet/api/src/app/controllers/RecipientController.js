@@ -5,23 +5,14 @@ import Recipient from '../models/Recipient';
 
 class RecipientController {
   async index(req, res) {
-    const { page = 1, q: nameFilter = null } = req.query;
+    const { page = 1, q: nameFilter = '' } = req.query;
 
-    if (nameFilter) {
-      const recipients = await Recipient.findAll({
-        order: ['id'],
-        limit: 5,
-        offset: (page - 1) * 5,
-        where: { name: { [Op.iLike]: `%${nameFilter}%` } },
-      });
-      return res.json(recipients);
-    }
     const recipients = await Recipient.findAll({
       order: ['id'],
       limit: 5,
       offset: (page - 1) * 5,
+      where: { name: { [Op.iLike]: `%${nameFilter}%` } },
     });
-
     return res.json(recipients);
   }
 
