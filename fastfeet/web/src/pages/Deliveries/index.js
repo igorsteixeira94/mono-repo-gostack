@@ -143,6 +143,7 @@ function Deliveries() {
         <tbody>
           {deliveries.map((d) => (
             <tr id="recipents" key={d.id}>
+              <Modal modalRef={modalRef} show={dropdown} id={d.id} />
               <td>#{d.id}</td>
               <td>{d.recipient}</td>
               <td>
@@ -164,7 +165,6 @@ function Deliveries() {
               <td id="actions">
                 <Action>
                   <BtnView type="button" onClick={toggleDropdown}>
-                    <Modal modalRef={modalRef} show={dropdown} id={d.id} />
                     <MdRemoveRedEye size={20} color="#8E5BE8" />
                     Visualizar
                   </BtnView>

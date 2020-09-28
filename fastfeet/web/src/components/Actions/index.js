@@ -13,9 +13,9 @@ function Actions({ children, visible }) {
           setIsVisible(!isVisible);
         }}
       >
-        <MdMoreHoriz color="#eee" size={24} />{' '}
-        <ActionsList visible={isVisible}>{children}</ActionsList>
+        <MdMoreHoriz color="#eee" size={24} />
       </button>
+      <ActionsList visible={isVisible}>{children}</ActionsList>
     </Container>
   );
 }

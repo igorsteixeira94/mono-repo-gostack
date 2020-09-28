@@ -9,7 +9,8 @@ export const TableWrapper = styled.table`
   }
 
   tr#deliveryman,
-  tr#recipents {
+  tr#recipents,
+  tr#problems {
     margin-top: 16px;
     text-align: center;
     max-height: 57px;
