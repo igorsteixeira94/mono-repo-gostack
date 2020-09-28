@@ -5,6 +5,7 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 
 import Dashboard from '../pages/Dashboard';
 import Profile from '../pages/Profile';
+import AppointmentStack from './AppointmentStack';
 
 const { Navigator, Screen } = createBottomTabNavigator();
 export default function TabNavigation() {
@@ -43,9 +44,20 @@ export default function TabNavigation() {
         name="Dashboard"
         component={Dashboard}
         options={{
-          tabBarLabel: 'Appointment',
+          tabBarLabel: 'Agendamentos',
           tabBarIcon: ({ color }) => (
             <Icon name="event" size={20} color={color} />
+          ),
+        }}
+      />
+      <Screen
+        name="New"
+        component={AppointmentStack}
+        options={{
+          tabBarLabel: 'Agendar',
+          tabBarVisible: false,
+          tabBarIcon: ({ color }) => (
+            <Icon name="add-circle-outline" size={20} color={color} />
           ),
         }}
       />
@@ -54,7 +66,6 @@ export default function TabNavigation() {
         component={Profile}
         options={{
           tabBarLabel: 'Meu Perfil',
-
           tabBarIcon: ({ color }) => (
             <Icon name="person" size={20} color={color} />
           ),

@@ -6,7 +6,7 @@ import reactotronSaga from 'reactotron-redux-saga';
 
 if (__DEV__) {
   const tron = Reactotron.setAsyncStorageHandler(AsyncStorage)
-    .configure({ name: 'React Native Demo' })
+    .configure({ name: 'React Native Demo', host: '192.168.0.109' })
     .useReactNative()
     .use(reactotronRedux())
     .use(reactotronSaga())
