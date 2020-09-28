@@ -5,6 +5,7 @@ import {
   subDays,
   addDays,
   setMinutes,
+  setMilliseconds,
   setHours,
   isBefore,
   isEqual,
@@ -27,7 +28,7 @@ function Dashboard() {
   const [date, setDate] = useState(new Date());
 
   const dateFormatted = useMemo(
-    () => format(date, "d 'de' MMMM", { locale: pt }),
+    () => format(date, "dd 'de' MMMM", { locale: pt }),
     [date]
   );
 
@@ -38,22 +39,24 @@ function Dashboard() {
       });
 
       const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
-      console.tron.log('aqui');
 
       const data = range.map((hour) => {
-        const checkDate = setSeconds(setMinutes(setHours(date, hour), 0), 0);
+        const checkDate = setMilliseconds(
+          setSeconds(setMinutes(setHours(date, hour), 0), 0),
+          0
+        );
         const compareDate = utcToZonedTime(checkDate, timezone);
 
         return {
           time: `${hour}:00h`,
           past: isBefore(compareDate, new Date()),
           appointment: response.data.find((a) =>
-            isEqual(parseISO(a.data), compareDate)
+            isEqual(parseISO(a.date), compareDate)
           ),
         };
       });
-      console.tron.log(data);
       setSchedule(data);
+      console.tron.log(data);
     }
     loadSchedule();
   }, [date]);
