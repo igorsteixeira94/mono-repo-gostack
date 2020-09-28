@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Alert } from 'react-native';
+
+import { useIsFocused } from '@react-navigation/native';
+
 import api from '../../services/api';
 
 import Background from '../../components/Background';
@@ -9,13 +12,17 @@ import { Container, Title, List } from './styles';
 
 const Dashboard = () => {
   const [appointments, setAppointments] = useState([]);
+  const isFocused = useIsFocused();
   async function loadAppointments() {
     const response = await api.get('appoitments');
     setAppointments(response.data);
   }
   useEffect(() => {
-    loadAppointments();
-  }, []);
+    if (isFocused) {
+      loadAppointments();
+      console.tron.log(isFocused);
+    }
+  }, [isFocused]);
 
   async function deleteAppointment(id) {
     try {

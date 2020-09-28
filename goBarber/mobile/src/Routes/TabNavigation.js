@@ -54,6 +54,7 @@ export default function TabNavigation() {
         name="New"
         component={AppointmentStack}
         options={{
+          unmountOnBlur: true,
           tabBarLabel: 'Agendar',
           tabBarVisible: false,
           tabBarIcon: ({ color }) => (
