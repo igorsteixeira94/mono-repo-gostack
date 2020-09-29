@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 
 function App() {
   /* Agora cada state possue suas variaveis separadas,
@@ -13,10 +13,10 @@ function App() {
   const [techs, setTechs] = useState([]);
   const [newTech, setNewTech] = useState('');
 
-  function handleAddTech() {
+  const handleAddTech = useCallback(() => {
     setTechs([...techs, newTech]);
     setNewTech('');
-  }
+  }, [newTech, techs]);
 
   useEffect(() => {
     const storageTechs = localStorage.getItem('techs');
