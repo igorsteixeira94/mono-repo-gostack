@@ -14,7 +14,7 @@ const Dashboard = () => {
   const [appointments, setAppointments] = useState([]);
   const isFocused = useIsFocused();
   async function loadAppointments() {
-    const response = await api.get('appoitments');
+    const response = await api.get('appointments');
     setAppointments(response.data);
   }
   useEffect(() => {
@@ -26,7 +26,7 @@ const Dashboard = () => {
 
   async function deleteAppointment(id) {
     try {
-      await api.delete(`appoitments/${id}`);
+      await api.delete(`appointments/${id}`);
       loadAppointments();
     } catch (error) {
       Alert.alert('Erro ao realizar o cancelamento');

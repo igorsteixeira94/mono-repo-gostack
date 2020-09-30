@@ -1,4 +1,6 @@
-import { takeLatest, call, all, put } from 'redux-saga/effects';
+import {
+ takeLatest, call, all, put 
+} from 'redux-saga/effects';
 import { Alert } from 'react-native';
 import api from '../../../services/api';
 
@@ -17,7 +19,8 @@ export function* signIn({ payload }) {
 
     // Se ele for um cliente da error
     if (user.provider) {
-      Alert.alert('Usuário é prestador');
+      Alert.alert('Erro', 'O usuário não é um cliente.');
+      yield put(signFailure());
       return;
     }
 
@@ -27,7 +30,7 @@ export function* signIn({ payload }) {
 
     // history.push('/dashboard');
   } catch (error) {
-    Alert.alert('Falha na autenticação ! Verifique seus dados');
+    Alert.alert('Falha na autenticação', 'Verifique seus dados');
     yield put(signFailure());
   }
 }

@@ -18,7 +18,8 @@ export function* signIn({ payload }) {
 
     // Se ele for um cliente da error
     if (!user.provider) {
-      toast.error('Usuário não é prestador');
+      toast.error('Usuário não é um prestador ! Por favor use o aplicativo.');
+      yield put(signFailure());
       return;
     }
 

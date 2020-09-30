@@ -5,7 +5,6 @@ import * as Sentry from '@sentry/node';
 import Youch from 'youch';
 import cors from 'cors';
 import * as Tracing from '@sentry/tracing';
-import sentryConfig from './config/sentry';
 import 'express-async-errors';
 import routes from './routes';
 
@@ -15,8 +14,7 @@ class App {
   constructor() {
     this.server = express();
     Sentry.init({
-      dsn:
-        'https://df5baa1018cc4045947dd816acddd111@o359560.ingest.sentry.io/5418760',
+      dsn: process.env.SENTRY_DSN,
       integrations: [
         // enable HTTP calls tracing
         new Sentry.Integrations.Http({ tracing: true }),

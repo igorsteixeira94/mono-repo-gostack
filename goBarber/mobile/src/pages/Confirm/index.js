@@ -23,7 +23,7 @@ const Confirm = ({
 
   async function handleAddAppointment() {
     try {
-      await api.post('appoitments', {
+      await api.post('appointments', {
         provider_id: provider.id,
         date: time,
       });

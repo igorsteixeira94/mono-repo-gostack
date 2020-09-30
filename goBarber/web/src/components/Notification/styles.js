@@ -4,6 +4,7 @@ import PerfectScrollbar from 'react-perfect-scrollbar';
 
 export const Container = styled.div`
   position: relative;
+  z-index: 9999;
 `;
 export const Badge = styled.button`
   background: none;
@@ -72,12 +73,13 @@ export const NotificationItem = styled.div`
 
   button {
     font-size: 12px;
-    border: 0;
     background: none;
     color: ${lighten(0.2, '#7159c1')};
     padding: 0 5px;
     margin: 0 5px;
     border-left: 1px solid rgba(255, 255, 255, 0.1);
+
+    cursor: pointer;
   }
 
   ${(props) =>

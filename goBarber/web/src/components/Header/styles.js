@@ -3,11 +3,12 @@ import styled from 'styled-components';
 export const Container = styled.div`
   background: #fff;
   padding: 0 30px;
+  height: 64px;
 `;
 
 export const Content = styled.div`
-  height: 64px;
   max-width: 900px;
+  height: 100%;
   margin: 0 auto;
   display: flex;
   justify-content: space-between;

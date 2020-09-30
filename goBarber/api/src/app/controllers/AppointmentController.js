@@ -82,6 +82,11 @@ class AppointmentController {
     });
 
     const user = await User.findByPk(req.userId);
+
+    if (user.provider) {
+      return res.status(400).json({ error: 'Client cannot be provider' });
+    }
+
     const formattedDate = format(
       hourStart,
       "'dia' dd 'de' MMMM', às' H:mm'h' ",

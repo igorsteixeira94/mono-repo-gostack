@@ -33,8 +33,12 @@ function Profile() {
           type="password"
           placeholder="Sua senha atual"
         />
-        <Input name="password" placeholder="Sua nova senha" />
-        <Input name="confirmPassword" placeholder="Nome Completo" />
+        <Input name="password" type="password" placeholder="Sua nova senha" />
+        <Input
+          name="confirmPassword"
+          type="password"
+          placeholder="Confirme sua senha"
+        />
 
         <button type="submit">Atualizar Perfil</button>
       </Form>
