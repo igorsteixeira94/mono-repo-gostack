@@ -1,4 +1,5 @@
-<img src="https://raw.githubusercontent.com/igorsteixeira94/mono-repo-gostack/7a1a9a7bb2ba2eb805c48a3ccf761cf6bc8fddc0/goBarber/web/src/assets/logo-purple.svg" width="200"/>
+<p align="center"><img src="https://raw.githubusercontent.com/igorsteixeira94/mono-repo-gostack/7a1a9a7bb2ba2eb805c48a3ccf761cf6bc8fddc0/goBarber/web/src/assets/logo-purple.svg" width="200"/></p>
+
 
 <h1 align="center">GoBarber</h1>
 <p align="center"><i>Plataforma de agendamento para salões de beleza.</i></p>
