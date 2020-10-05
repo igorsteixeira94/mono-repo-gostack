@@ -1,5 +1,5 @@
 import React, { useCallback, useState } from 'react';
-import { Image, StatusBar } from 'react-native';
+import { Alert, Image, StatusBar } from 'react-native';
 
 import api from '../../services/api';
 
@@ -8,13 +8,18 @@ import Button from '../../components/Button';
 
 import { Container, Input } from './styles';
 
-const Login = () => {
+const Login = ({ navigation }) => {
   const [inputId, setInputId] = useState('');
 
   const handleSubmit = useCallback(async () => {
-    await api.get('/sessions/deliveryman', {
-      id: inputId,
-    });
+    try {
+      const response = await api.post('/sessions/deliveryman', {
+        id: inputId,
+      });
+      navigation.push('Dashboard', response.data);
+    } catch (error) {
+      Alert.alert('Falha na autenticação', 'ID inválido');
+    }
   }, [inputId]);
 
   return (
