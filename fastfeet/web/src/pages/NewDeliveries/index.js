@@ -9,7 +9,7 @@ import api from '../../services/api';
 
 import { Wrapper, Main, Selection } from './styles';
 
-function NewDeliveries(props) {
+function NewDeliveries() {
   const [deliveryName, setDeliveryName] = useState('');
   const [recipient, setRecipient] = useState('');
   const [deliveryman, setDeliveryman] = useState('');
