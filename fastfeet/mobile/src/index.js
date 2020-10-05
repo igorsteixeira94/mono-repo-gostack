@@ -1,10 +1,7 @@
 import React from 'react';
-import { Text, View } from 'react-native';
+import './config/ReactotronConfig';
+import Router from './pages/Routes';
 
-const src = () => (
-  <View>
-    <Text>Bem-vindo</Text>
-  </View>
-);
+const src = () => <Router />;
 
 export default src;
