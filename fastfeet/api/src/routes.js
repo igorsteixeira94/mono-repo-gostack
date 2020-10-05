@@ -1,6 +1,7 @@
 import { Router } from 'express';
 import multer from 'multer';
 import SessionController from './app/controllers/SessionController';
+import SessionDeliverymanController from './app/controllers/SessionDeliverymanController';
 import RecipientController from './app/controllers/RecipientController';
 
 import authMiddleware from './app/middlewares/auth';
@@ -15,6 +16,7 @@ const routes = new Router();
 const upload = multer(multerConfig);
 
 routes.post('/sessions', SessionController.store);
+routes.post('/sessions/deliveryman', SessionDeliverymanController.store);
 
 // Rotas dos destinatarios:
 routes.get('/recipients', RecipientController.index);
