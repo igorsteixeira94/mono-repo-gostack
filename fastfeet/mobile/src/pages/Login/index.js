@@ -8,8 +8,8 @@ const Login = () => {
   const [inputId, setInputId] = useState('');
 
   const handleSubmit = useCallback(() => {
-    console.log('Funcionando');
-    console.log(inputId);
+    console.tron.log('Funcionando');
+    console.tron.log(inputId);
   }, []);
 
   return (
