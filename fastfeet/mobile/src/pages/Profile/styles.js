@@ -8,15 +8,7 @@ export const Container = styled.View`
 
   justify-content: center;
 `;
-export const AvatarContainer = styled.View`
-  width: 120px;
-  height: 120px;
-  border-radius: 60px;
-  background: #f4effc;
 
-  align-self: center;
-  margin-bottom: 30px;
-`;
 export const TextLabel = styled.Text`
   font-size: 12px;
   color: #666666;
