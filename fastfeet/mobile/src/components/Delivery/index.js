@@ -20,8 +20,8 @@ const Delivery = () => (
       <MainTitle>
         <Icon name="local-shipping" size={22} color="#7D40E7" />
         <MainTitleText>Encomenda 01</MainTitleText>
-        <ProgressSteps />
       </MainTitle>
+      <ProgressSteps />
     </Main>
     <Footer>
       <FooterContainer>

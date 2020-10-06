@@ -1,11 +1,34 @@
 import React from 'react';
-import { Text } from 'react-native';
-import { Container } from './styles';
 
-const ProgressSteps = () => (
-  <Container>
-    <Text>Oii</Text>
-  </Container>
-);
+import {
+  Container,
+  Line,
+  StatusContainer,
+  LabelContainer,
+  Dot,
+  Label,
+} from './styles';
 
-export default ProgressSteps;
+export default function ProgressStepes() {
+  return (
+    <Container>
+      <Line />
+      <StatusContainer>
+        <LabelContainer>
+          <Dot filled />
+          <Label>Aguardando Retirada</Label>
+        </LabelContainer>
+
+        <LabelContainer>
+          <Dot filled />
+          <Label>Retirada</Label>
+        </LabelContainer>
+
+        <LabelContainer>
+          <Dot />
+          <Label>Entregue</Label>
+        </LabelContainer>
+      </StatusContainer>
+    </Container>
+  );
+}
