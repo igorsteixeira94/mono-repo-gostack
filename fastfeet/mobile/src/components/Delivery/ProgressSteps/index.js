@@ -20,7 +20,7 @@ export default function ProgressStepes() {
         </LabelContainer>
 
         <LabelContainer>
-          <Dot filled />
+          <Dot />
           <Label>Retirada</Label>
         </LabelContainer>
 

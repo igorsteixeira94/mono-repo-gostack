@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
-
+import React, { useEffect, useState } from 'react';
 import { TouchableOpacity } from 'react-native';
+import { FlatList } from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import api from '../../services/api';
 import Delivery from '../../components/Delivery';
 
 import {
@@ -22,7 +23,17 @@ import {
 
 const Dashboard = ({ route: { params: profile }, navigation }) => {
   const [deliveries, setDeliveries] = useState([]);
-  console.tron.log(profile);
+
+  useEffect(() => {
+    async function loadData() {
+      try {
+        const response = await api.get(`/deliveryman/${profile.id}/deliveries`);
+        setDeliveries(response.data);
+        console.tron.log(deliveries);
+      } catch (error) {}
+    }
+    loadData();
+  }, []);
 
   return (
     <Container>
@@ -55,7 +66,12 @@ const Dashboard = ({ route: { params: profile }, navigation }) => {
             </TouchableOpacity>
           </DeliveryOptions>
         </MainHeader>
-        <Delivery />
+        <FlatList
+          data={deliveries}
+          showsVerticalScrollIndicator={false}
+          keyExtractor={(item) => String(item.id)}
+          renderItem={({ item }) => <Delivery data={item} />}
+        />
       </Main>
     </Container>
   );

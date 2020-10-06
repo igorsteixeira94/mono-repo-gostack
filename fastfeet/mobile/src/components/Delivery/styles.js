@@ -2,13 +2,16 @@ import styled from 'styled-components/native';
 
 export const Container = styled.View`
   flex: 1;
-  max-height: 169px;
+  height: 169px;
   border-radius: 4px;
   border: 1px solid #0000001a;
+
+  margin-top: 16px;
 `;
 export const Main = styled.View`
   flex: 1;
   padding: 12px;
+  justify-content: space-around;
 `;
 
 export const MainTitle = styled.View`
