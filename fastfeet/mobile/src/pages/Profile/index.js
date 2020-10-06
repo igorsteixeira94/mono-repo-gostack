@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 /* eslint-disable object-curly-newline */
 import { format, parseISO } from 'date-fns';
 import React, { useMemo } from 'react';

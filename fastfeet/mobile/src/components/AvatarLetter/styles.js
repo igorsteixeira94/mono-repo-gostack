@@ -8,15 +8,14 @@ export const Avatar = styled.View`
   background: ${(props) => lighten(0.3, props.color)};
 
   align-self: center;
-  margin-bottom: 30px;
 
   align-items: center;
   justify-content: center;
 `;
 
 export const TAvatar = styled.Text`
-  font-size: 60px;
   font-weight: bold;
+  font-size: ${(props) => (props.fontSize ? `${props.fontSize}px` : '60px')};
 
   color: ${(props) => props.color};
 `;

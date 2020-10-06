@@ -6,7 +6,9 @@ import { Avatar, TAvatar } from './styles';
 
 import createLetterAvatar from '../../util/letterAvatar';
 
-const AvatarLetter = ({ style, data, ...rest }) => {
+const AvatarLetter = ({
+  style, data, fontSize, ...rest
+}) => {
   const [avatarLetter, setAvatarLetter] = useState(
     createLetterAvatar(data.name, data.id),
   );
@@ -16,7 +18,7 @@ const AvatarLetter = ({ style, data, ...rest }) => {
 
   return (
     <Avatar style={style} color={avatarLetter.color} {...rest}>
-      <TAvatar color={avatarLetter.color}>{avatarLetter.letters}</TAvatar>
+      <TAvatar color={avatarLetter.color} fontSize={fontSize}>{avatarLetter.letters}</TAvatar>
     </Avatar>
   );
 };

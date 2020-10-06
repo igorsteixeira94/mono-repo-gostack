@@ -32,6 +32,7 @@ export default function TabNavigate({ route: { params } }) {
         inactiveTintColor: '#999999',
         activeTintColor: '#7D40E7',
       }}
+      screenOptions={{ unmountOnBlur: true }}
     >
       <Screen
         name="Entregas"
