@@ -35,6 +35,8 @@
     
     
  *Navegue pelas pastas para conhecer cada exercício/desafio ! Cada pasta está devidamente documentada.*
+ 
+👷‍♂️️ *Finalizada as tarefas desse repositório.*
     
 
   
