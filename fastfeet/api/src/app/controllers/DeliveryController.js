@@ -10,6 +10,7 @@ import {
 import isWithinInterval from 'date-fns/isWithinInterval';
 
 import Parcel from '../models/Parcel';
+import Recipient from '../models/Recipient';
 
 export default new (class DeliveryController {
   async index(req, res) {
@@ -32,6 +33,7 @@ export default new (class DeliveryController {
     const parcels = await Parcel.findAll({
       where: { deliveryman_id, canceled_at: null, signature_id: null },
       order: [['created_at', 'DESC']],
+      include: { model: Recipient, as: 'recipient' },
     });
 
     return res.json(parcels);
